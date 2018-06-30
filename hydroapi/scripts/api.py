@@ -3,6 +3,8 @@ import argparse
 from flask_cors import cross_origin
 from flask import Flask, request, jsonify, make_response
 
+from hydroapi import Api
+
 
 def cli():
     parser = argparse.ArgumentParser(
@@ -43,6 +45,7 @@ PORT = config['port']
 DEBUG = config['debug']
 
 app = Flask(__name__, static_folder="/tmp")
+api = Api()
 
 if DEBUG:
     app.config['DEBUG'] = True

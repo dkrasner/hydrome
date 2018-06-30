@@ -1,8 +1,9 @@
 import argparse
 
 from flask_cors import cross_origin
-from flask import (Flask, request, session, jsonify, make_response,
-                   render_template)
+from flask import Flask, request, jsonify, make_response
+
+from hydroapi import Api
 
 
 def cli():
@@ -44,6 +45,7 @@ PORT = config['port']
 DEBUG = config['debug']
 
 app = Flask(__name__, static_folder="/tmp")
+api = Api()
 
 if DEBUG:
     app.config['DEBUG'] = True
@@ -51,13 +53,94 @@ else:
     app.config['propagate_exceptions'] = True
 
 
-@app.route('/', methods=["GET"])
+@app.route('/model', methods=["GET", "POST"])
 @cross_origin()
-def model_info():
+def model():
     """ """
-    return_data = {"results": "ok"}
-    resp_code = 200
-    response = make_response(jsonify(return_data), resp_code)
+    # GET to get info
+    # POST to create/configure/compile instance
+    try:
+        if request.method == "GET":
+            name = request.args.get("name")
+            return_data = {"results": api.model_info(name)}
+        elif request.method == "POST":
+            model_args = request.json.get("model_args")
+            compile_args = request.json.get("compile_args")
+            status = api.model_compile(model_args, compile_args)
+            return_data = {"results": {"status": status}}
+        response_code = 200
+    except Exception as e:  # TODO: list apprpriate errors here
+        return_data = {"error": str(e)}
+        response_code = 400
+    response = make_response(jsonify(return_data), response_code)
+    response.mimetype = 'application/json'
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
+
+@app.route('/domain', methods=["GET"])
+@cross_origin()
+def domain():
+    """ """
+    # GET to get info
+    # POST to create/configure instance
+    # PUT to compile instance
+    try:
+        name = request.args.get("name")
+        return_data = {"results": api.domain_info(name)}
+        response_code = 200
+    except Exception as e:  # TODO: list apprpriate errors here
+        return_data = {"error": str(e)}
+        response_code = 400
+    response = make_response(jsonify(return_data), response_code)
+    response.mimetype = 'application/json'
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
+
+@app.route('/setup', methods=["POST"])
+@cross_origin()
+def setup():
+    """ """
+    # GET to get info
+    # POST to create/configure instance
+    # PUT to compile instance
+    try:
+        model = request.json.get("model")
+        domain = request.json.get("domain")
+        status = api.setup(model, domain)
+        return_data = {"results": {"status": status}}
+        response_code = 200
+    except Exception as e:  # TODO: list apprpriate errors here
+        return_data = {"error": str(e)}
+        response_code = 400
+    response = make_response(jsonify(return_data), response_code)
+    response.mimetype = 'application/json'
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
+
+@app.route('/run', methods=["GET", "PUT", "POST"])
+@cross_origin()
+def run():
+    """ """
+    # GET to get info
+    # POST to create/configure instance
+    # PUT to compile instance
+    # TODO: unclear what happens here
+    try:
+        if request.method == "GET":
+            return_data = {"results": "ok"}
+        elif request.method == "POST":
+            return_data = {"results": "ok"}
+        elif request.method == "PUT":
+            return_data = {"results": "ok"}
+        return_data = {"results": "ok"}
+        response_code = 200
+    except Exception as e:  # TODO: list apprpriate errors here
+        return_data = {"error": str(e)}
+        response_code = 400
+    response = make_response(jsonify(return_data), response_code)
     response.mimetype = 'application/json'
     response.headers['Content-Type'] = 'application/json'
     return response

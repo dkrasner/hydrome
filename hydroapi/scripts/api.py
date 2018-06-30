@@ -53,21 +53,21 @@ else:
     app.config['propagate_exceptions'] = True
 
 
-@app.route('/model', methods=["GET", "PUT", "POST"])
+@app.route('/model', methods=["GET", "POST"])
 @cross_origin()
 def model():
     """ """
     # GET to get info
-    # POST to create/configure instance
-    # PUT to compile instance
+    # POST to create/configure/compile instance
     try:
         if request.method == "GET":
-            return_data = {"results": "ok"}
+            name = request.args.get("name")
+            return_data = {"results": api.model_info(name)}
         elif request.method == "POST":
-            return_data = {"results": "ok"}
-        elif request.method == "PUT":
-            return_data = {"results": "ok"}
-        return_data = {"results": "ok"}
+            model_args = request.json.get("model_args")
+            compile_args = request.json.get("compile_args")
+            status = api.model_compile(model_args, compile_args)
+            return_data = {"results": {"status": status}}
         response_code = 200
     except Exception as e:  # TODO: list apprpriate errors here
         return_data = {"error": str(e)}
@@ -78,7 +78,7 @@ def model():
     return response
 
 
-@app.route('/domain', methods=["GET", "POST"])
+@app.route('/domain', methods=["GET"])
 @cross_origin()
 def domain():
     """ """
@@ -86,11 +86,8 @@ def domain():
     # POST to create/configure instance
     # PUT to compile instance
     try:
-        if request.method == "GET":
-            return_data = {"results": "ok"}
-        elif request.method == "POST":
-            return_data = {"results": "ok"}
-        return_data = {"results": "ok"}
+        name = request.args.get("name")
+        return_data = {"results": api.domain_info(name)}
         response_code = 200
     except Exception as e:  # TODO: list apprpriate errors here
         return_data = {"error": str(e)}
@@ -101,7 +98,7 @@ def domain():
     return response
 
 
-@app.route('/setup', methods=["GET", "POST"])
+@app.route('/setup', methods=["POST"])
 @cross_origin()
 def setup():
     """ """
@@ -109,11 +106,10 @@ def setup():
     # POST to create/configure instance
     # PUT to compile instance
     try:
-        if request.method == "GET":
-            return_data = {"results": "ok"}
-        elif request.method == "POST":
-            return_data = {"results": "ok"}
-        return_data = {"results": "ok"}
+        model = request.json.get("model")
+        domain = request.json.get("domain")
+        status = api.setup(model, domain)
+        return_data = {"results": {"status": status}}
         response_code = 200
     except Exception as e:  # TODO: list apprpriate errors here
         return_data = {"error": str(e)}
@@ -131,6 +127,7 @@ def run():
     # GET to get info
     # POST to create/configure instance
     # PUT to compile instance
+    # TODO: unclear what happens here
     try:
         if request.method == "GET":
             return_data = {"results": "ok"}

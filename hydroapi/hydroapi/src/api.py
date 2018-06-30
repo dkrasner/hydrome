@@ -1,5 +1,4 @@
-"""ML Application."""
-from typing import List
+"""API Handler."""
 
 
 class Api(object):
@@ -12,30 +11,28 @@ class Api(object):
         self.models = {
             "WrfHydroModel": {
                 "args": [
-                    {"name": "source_dir", "type": str,
+                    {"name": "source_dir", "type": "str",
                      "default": "/wrf_hydro_nwm_public/trunk/NDHMS/"
                      },
-                    {"name": "model_config", "type": List[str],
+                    {"name": "model_config", "type": "List[str]",
                      "options": ["NWM"], "default": "NWM"}
                 ],
                 "compile_args": [
-                    {"name": "compiler", "type": List[str], "default": "gfort",
-                     "options": ["gfort"]},
-                    {"name": "compile_dir", "type": str, "default": "/tmp"},
-                    {"name": "overwrite", "type": bool, "default": False},
+                    {"name": "compiler", "type": "List[str]",
+                     "default": "gfort", "options": ["gfort"]},
+                    {"name": "compile_dir", "type": "str", "default": "/tmp"},
+                    {"name": "overwrite", "type": "bool", "default": "False"},
                 ]
             }
         }
         self.domains = {
             "WrfHydroDomain": {
                 "args": [
-                    {"name": "domain_top_dir", "type": str,
+                    {"name": "domain_top_dir", "type": "str",
                      "default": "/domain/croton_NY"
                      },
-                    {"name": "model_version", "type": str,
-                     "default": None
-                     },
-                    {"name": "domain_config", "type": List[str],
+                    {"name": "model_version", "type": "str"},
+                    {"name": "domain_config", "type": "List[str]",
                      "options": ["NWM"], "default": "NWM"}
                 ]
             }

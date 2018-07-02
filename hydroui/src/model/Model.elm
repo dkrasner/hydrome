@@ -4,9 +4,11 @@ module Model exposing (..)
 
 
 type alias Model =
-    {}
+    { area : String
+    }
 
 
 model : Model
 model =
-    {}
+    { area = "landing"
+    }

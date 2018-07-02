@@ -9,3 +9,79 @@ body {
 html {
     height: 100%;
 }
+
+.controller {
+    height: 20vw;
+    width: 20vw;
+    position: relative;
+    font-size: 1.7vw;
+    /*border: 2px solid crimson;*/
+    overflow: hidden;
+    transition: all 1s;
+}
+
+.controller:hover {
+    height: 30vw;
+    width: 30vw;
+    font-size: 2.7vw;
+}
+
+.top,
+.left,
+.right,
+.bottom {
+    position: absolute;
+    height: calc(100% / 1.414);
+    width: calc(100% / 1.414);
+    top: 50%;
+    left: 50%;
+    /* border: 1px solid crimson; */
+    transform-origin: 0% 0%;
+    cursor: pointer;
+}
+
+.right {
+    transform: rotate(-45deg);
+    background-color: #AC3E31;
+}
+
+.bottom {
+    transform: rotate(45deg);
+    background-color: #6AB187;
+}
+
+.top {
+    transform: rotate(-135deg);
+    background-color: #488A99;
+
+}
+
+.left {
+    transform: rotate(135deg);
+    background-color: #5d5757;
+}
+
+.controller-text {
+    position: absolute;
+    font-weight: bold;
+}
+
+.top .controller-text {
+    transform: rotate(135deg);
+    transform-origin: 55% 120% 0px;
+}
+
+.right .controller-text {
+    transform: rotate(45deg);
+    transform-origin: 0 185% 0px;
+}
+
+.left .controller-text {
+    transform: rotate(-135deg);
+    transform-origin: 55% 104% 0px;
+}
+
+.bottom .controller-text {
+    transform: rotate(-45deg);
+    transform-origin: 180% 0% 0px;
+}

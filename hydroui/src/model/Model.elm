@@ -10,5 +10,5 @@ type alias Model =
 
 model : Model
 model =
-    { area = "landing"
+    { area = "Landing"
     }

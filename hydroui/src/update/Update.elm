@@ -4,9 +4,11 @@ import Model exposing (Model)
 
 
 type Msg
-    = ChangeView String
+    = ChangeArea String
 
 
 update : Msg -> Model -> Model
 update msg model =
-    model
+    case msg of
+        ChangeArea area ->
+            { model | area = area }

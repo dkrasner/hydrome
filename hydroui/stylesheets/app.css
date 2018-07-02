@@ -15,6 +15,7 @@ html {
     width: 20vw;
     position: relative;
     font-size: 1.7vw;
+    font-family: Impact;
     /*border: 2px solid crimson;*/
     overflow: hidden;
     transition: all 1s;
@@ -43,7 +44,7 @@ html {
 .right {
     transform: rotate(-45deg);
     background-color: #AC3E31;
-}
+} 
 
 .bottom {
     transform: rotate(45deg);
@@ -63,7 +64,6 @@ html {
 
 .controller-text {
     position: absolute;
-    font-weight: bold;
 }
 
 .top .controller-text {
@@ -78,7 +78,7 @@ html {
 
 .left .controller-text {
     transform: rotate(-135deg);
-    transform-origin: 55% 104% 0px;
+    transform-origin: 60% 101% 0px;
 }
 
 .bottom .controller-text {

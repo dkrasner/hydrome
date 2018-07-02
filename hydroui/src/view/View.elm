@@ -13,23 +13,33 @@ view model =
         [ areaSelector model.area ]
 
 
-areaSelector : String -> Html msg
+areaSelector : String -> Html Msg
 areaSelector area =
     case area of
-        "landing" ->
+        "Landing" ->
             landingArea
 
         _ ->
             div [] [ text "Outer space" ]
 
 
-landingArea : Html msg
+landingArea : Html Msg
 landingArea =
     div [ class "row h-100 justify-content-center align-items-center" ]
         [ div [ class "controller" ]
-            [ div [ class "top" ] [ div [ class "controller-text" ] [ text "Select" ] ]
-            , div [ class "right" ] [ div [ class "controller-text" ] [ text "Stage" ] ]
-            , div [ class "bottom" ] [ div [ class "controller-text" ] [ text "Run" ] ]
-            , div [ class "left" ] [ div [ class "controller-text" ] [ text "Feedback" ] ]
+            [ controller "top" "Select"
+            , controller "right" "Stage"
+            , controller "bottom" "Run"
+            , controller "left" "Feedback"
             ]
         ]
+
+
+
+-- Controller button object, as seen on landing page
+
+
+controller : String -> String -> Html Msg
+controller position name =
+    div [ class position, onClick (ChangeArea name) ]
+        [ div [ class "controller-text" ] [ text name ] ]

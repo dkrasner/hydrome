@@ -10,6 +10,6 @@ import Update exposing (..)
 stageArea : Html Msg
 stageArea =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ div [ class "controller" ]
+        [ div []
             [ text "Stage Area" ]
         ]

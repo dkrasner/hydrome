@@ -10,6 +10,6 @@ import Update exposing (..)
 feedbackArea : Html Msg
 feedbackArea =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ div [ class "controller" ]
+        [ div []
             [ text "Feedback Area" ]
         ]

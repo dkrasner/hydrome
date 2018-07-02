@@ -10,6 +10,6 @@ import Update exposing (..)
 selectArea : Html Msg
 selectArea =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ div [ class "controller" ]
+        [ div []
             [ text "Select Area" ]
         ]

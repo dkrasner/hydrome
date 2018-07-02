@@ -10,6 +10,6 @@ import Update exposing (..)
 runArea : Html Msg
 runArea =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ div [ class "controller" ]
+        [ div []
             [ text "Run Area" ]
         ]

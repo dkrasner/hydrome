@@ -9,7 +9,7 @@ import Select exposing (selectArea)
 import Stage exposing (stageArea)
 import Run exposing (runArea)
 import Feedback exposing (feedbackArea)
-import Controller exposing (controller)
+import Controller exposing (..)
 
 
 view : Model -> Html Msg
@@ -43,4 +43,4 @@ areaSelector area =
 landingArea : Html Msg
 landingArea =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ controller "landing" ]
+        [ controller Landing ]

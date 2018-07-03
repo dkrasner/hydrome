@@ -9,17 +9,49 @@ import Update exposing (..)
 
 {-| Controller button object
 
-typeof : either "landing" or "nav"
+controllertype : either "landing" or "nav"
 
 -}
-controller : String -> Html Msg
-controller typeof =
-    div [ class ("controller " ++ typeof) ]
-        [ controllerButton "top" "Select"
-        , controllerButton "right" "Stage"
-        , controllerButton "bottom" "Run"
-        , controllerButton "left" "Feedback"
-        ]
+type Controllertype
+    = Landing
+    | Nav
+
+
+controller : Controllertype -> Html Msg
+controller controllertype =
+    let
+        attrs =
+            controllerAttr controllertype
+
+        cls =
+            controllerClass controllertype
+    in
+        div [ cls, attrs ]
+            [ controllerButton "top" "Select"
+            , controllerButton "right" "Stage"
+            , controllerButton "bottom" "Run"
+            , controllerButton "left" "Feedback"
+            ]
+
+
+controllerAttr : Controllertype -> Attribute msg
+controllerAttr controllertype =
+    case controllertype of
+        Nav ->
+            attribute "draggable" "true"
+
+        Landing ->
+            attribute "draggable" "false"
+
+
+controllerClass : Controllertype -> Attribute msg
+controllerClass controllertype =
+    case controllertype of
+        Nav ->
+            class "controller nav"
+
+        Landing ->
+            class "controller landing"
 
 
 controllerButton : String -> String -> Html Msg

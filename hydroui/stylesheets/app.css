@@ -16,6 +16,7 @@ html {
     /*border: 2px solid crimson;*/
     overflow: hidden;
     transition: all 1s;
+    cursor: pointer;
 }
 
 .controller.landing {
@@ -25,6 +26,7 @@ html {
 }
 
 .controller.nav {
+    position: absolute;
     height: 5vw;
     width: 5vw;
     font-size: .4vw;
@@ -47,7 +49,6 @@ html {
     left: 50%;
     /* border: 1px solid crimson; */
     transform-origin: 0% 0%;
-    cursor: pointer;
 }
 
 .top:hover,

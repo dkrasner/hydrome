@@ -11,20 +11,27 @@ html {
 }
 
 .controller {
-    height: 20vw;
-    width: 20vw;
     position: relative;
-    font-size: 1.7vw;
     font-family: Impact;
     /*border: 2px solid crimson;*/
     overflow: hidden;
     transition: all 1s;
 }
 
+.controller.landing {
+    height: 20vw;
+    width: 20vw;
+    font-size: 1.7vw;
+}
+
+.controller.nav {
+    height: 5vw;
+    width: 5vw;
+    font-size: .4vw;
+}
+
 .controller:hover {
-    height: 30vw;
-    width: 30vw;
-    font-size: 2.7vw;
+    transform: scale(1.5, 1.5);
 }
 
 .top,

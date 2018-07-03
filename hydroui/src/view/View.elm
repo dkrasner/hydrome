@@ -9,6 +9,7 @@ import Select exposing (selectArea)
 import Stage exposing (stageArea)
 import Run exposing (runArea)
 import Feedback exposing (feedbackArea)
+import Controller exposing (controller)
 
 
 view : Model -> Html Msg
@@ -42,20 +43,4 @@ areaSelector area =
 landingArea : Html Msg
 landingArea =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ div [ class "controller" ]
-            [ controller "top" "Select"
-            , controller "right" "Stage"
-            , controller "bottom" "Run"
-            , controller "left" "Feedback"
-            ]
-        ]
-
-
-
--- Controller button object, as seen on landing page
-
-
-controller : String -> String -> Html Msg
-controller position name =
-    div [ class position, onClick (ChangeArea name) ]
-        [ div [ class "controller-text" ] [ text name ] ]
+        [ controller "landing" ]

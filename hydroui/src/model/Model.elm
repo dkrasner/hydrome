@@ -16,7 +16,7 @@ type alias Model =
 model : Model
 model =
     { area = "Landing"
-    , controllerXY = Position 200 200
+    , controllerXY = Position 580 -250
     , drag = Draggable.init
     }
 

@@ -43,4 +43,4 @@ areaSelector area =
 landingArea : Html Msg
 landingArea =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ controller Landing ]
+        [ controller model.controllermodel Landing ]

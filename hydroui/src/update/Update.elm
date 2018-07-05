@@ -1,5 +1,6 @@
 module Update exposing (..)
 
+import Debug
 import Model exposing (Model)
 
 

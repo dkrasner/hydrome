@@ -3,13 +3,14 @@ module Controller exposing (..)
 import Html exposing (..)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (class, placeholder, style, id, property, attribute, type_)
-import Model exposing (Model, model)
+import DragEvents exposing (onDragStart, onDragEnd)
+import Model exposing (ControllerModel, controllerModel)
 import Update exposing (..)
 
 
 {-| Controller button object
 
-controllertype : either "landing" or "nav"
+controllertype : either "landing" or "controller"
 
 -}
 type Controllertype
@@ -17,16 +18,13 @@ type Controllertype
     | Nav
 
 
-controller : Controllertype -> Html Msg
-controller controllertype =
+controller : ControllerModel -> Controllertype -> Html Msg
+controller model controllertype =
     let
         attrs =
-            controllerAttr controllertype
-
-        cls =
-            controllerClass controllertype
+            controllerAttrs model controllertype
     in
-        div [ cls, attrs ]
+        div (attrs)
             [ controllerButton "top" "Select"
             , controllerButton "right" "Stage"
             , controllerButton "bottom" "Run"
@@ -34,24 +32,25 @@ controller controllertype =
             ]
 
 
-controllerAttr : Controllertype -> Attribute msg
-controllerAttr controllertype =
+controllerAttrs : ControllerModel -> Controllertype -> List (Attribute msg)
+controllerAttrs model controllertype =
     case controllertype of
         Nav ->
-            attribute "draggable" "true"
+            let
+                x =
+                    toString model.position.x ++ "px"
+
+                y =
+                    toString model.position.y ++ "px"
+            in
+                [ attribute "draggable" "true"
+                , class "controller nav"
+                , style [ ( "top", x ), ( "right", y ) ]
+                ]
 
         Landing ->
-            attribute "draggable" "false"
-
-
-controllerClass : Controllertype -> Attribute msg
-controllerClass controllertype =
-    case controllertype of
-        Nav ->
-            class "controller nav"
-
-        Landing ->
-            class "controller landing"
+            [ class "controller landing"
+            ]
 
 
 controllerButton : String -> String -> Html Msg

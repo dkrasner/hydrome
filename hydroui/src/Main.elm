@@ -7,9 +7,7 @@ import Update exposing (Msg, update)
 import Model exposing (Model, model)
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( model, Cmd.none )
+-- import Subscriptions exposing (..)
 
 
 main : Program Never Model Msg

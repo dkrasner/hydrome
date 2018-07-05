@@ -6,6 +6,12 @@ import Draggable
 -- MODEL
 
 
+type alias Position =
+    { x : Float
+    , y : Float
+    }
+
+
 type alias Model =
     { area : String
     , controllerXY : Position
@@ -18,23 +24,4 @@ model =
     { area = "Landing"
     , controllerXY = Position 580 -250
     , drag = Draggable.init
-    }
-
-
-controllerModel : ControllerModel
-controllerModel =
-    { position = Position 25 25
-    , drag = Draggable.init
-    }
-
-
-type alias Position =
-    { x : Float
-    , y : Float
-    }
-
-
-type alias ControllerModel =
-    { position : Position
-    , drag : Draggable.State String
     }

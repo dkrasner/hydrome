@@ -10,8 +10,14 @@ import Controller exposing (..)
 
 selectArea : Model -> Html Msg
 selectArea model =
-    div [ class "row h-100 justify-content-center align-items-center" ]
-        [ controller model Nav
-        , div []
-            [ text "Select Area" ]
-        ]
+    let
+        selectClass =
+            class "col col-4 h-75 m-1 border border-secondary rounded shadow"
+    in
+        div [ class "row h-100 justify-content-center align-items-center" ]
+            [ controller model Nav
+            , div [ selectClass ]
+                [ text "Select Model Area" ]
+            , div [ selectClass ]
+                [ text "Select Domain Area" ]
+            ]

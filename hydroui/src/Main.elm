@@ -5,17 +5,19 @@ import Html exposing (..)
 import View exposing (view)
 import Update exposing (Msg, update)
 import Model exposing (Model, model)
+import Subscriptions exposing (..)
 
 
--- import Subscriptions exposing (..)
+init : ( Model, Cmd Msg )
+init =
+    ( model, Cmd.none )
 
 
-main : Program Never Model Msg
+main : Program
 main =
-    Html.beginnerProgram
-        { model = model
+    Html.program
+        { init = init
         , view = view
         , update = update
-
-        -- , subscriptions = subscriptions
+        , subscriptions = subscriptions
         }

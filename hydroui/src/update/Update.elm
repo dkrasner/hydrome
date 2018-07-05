@@ -8,8 +8,8 @@ type Msg
     = ChangeArea String
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ChangeArea area ->
-            { model | area = area }
+            ( { model | area = area }, Cmd.none )

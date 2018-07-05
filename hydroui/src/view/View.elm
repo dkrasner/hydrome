@@ -15,32 +15,32 @@ import Controller exposing (..)
 view : Model -> Html Msg
 view model =
     div [ class "container-fluid h-100 main" ]
-        [ areaSelector model.area ]
+        [ areaSelector model ]
 
 
-areaSelector : String -> Html Msg
-areaSelector area =
-    case area of
+areaSelector : Model -> Html Msg
+areaSelector model =
+    case model.area of
         "Landing" ->
-            landingArea
+            landingArea model
 
         "Select" ->
-            selectArea
+            selectArea model
 
         "Stage" ->
-            stageArea
+            stageArea model
 
         "Run" ->
-            runArea
+            runArea model
 
         "Feedback" ->
-            feedbackArea
+            feedbackArea model
 
         _ ->
             div [] [ text "Outer space" ]
 
 
-landingArea : Html Msg
-landingArea =
+landingArea : Model -> Html Msg
+landingArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ controller model.controllermodel Landing ]
+        [ controller model.controller Landing ]

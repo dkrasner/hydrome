@@ -3,15 +3,15 @@ module Select exposing (selectArea)
 import Html exposing (..)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (class, placeholder, style, id, property, attribute, type_)
-import Model exposing (controllerModel)
+import Model exposing (Model)
 import Update exposing (..)
 import Controller exposing (..)
 
 
-selectArea : Html Msg
-selectArea =
+selectArea : Model -> Html Msg
+selectArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ controller controllerModel Nav
+        [ controller model.controller Nav
         , div []
             [ text "Select Area" ]
         ]

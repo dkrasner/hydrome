@@ -8,14 +8,14 @@ import Mouse exposing (Position)
 
 type alias Model =
     { area : String
-    , controllermodel : ControllerModel
+    , controller : ControllerModel
     }
 
 
 model : Model
 model =
     { area = "Landing"
-    , controllermodel = controllerModel
+    , controller = controllerModel
     }
 
 

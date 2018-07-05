@@ -1,6 +1,6 @@
 module Model exposing (..)
 
-import Mouse exposing (Position)
+import Draggable
 
 
 -- MODEL
@@ -8,31 +8,33 @@ import Mouse exposing (Position)
 
 type alias Model =
     { area : String
-    , controller : ControllerModel
+    , controllerXY : Position
+    , drag : Draggable.State String
     }
 
 
 model : Model
 model =
     { area = "Landing"
-    , controller = controllerModel
+    , controllerXY = Position 200 200
+    , drag = Draggable.init
     }
 
 
 controllerModel : ControllerModel
 controllerModel =
     { position = Position 25 25
-    , drag = Nothing
+    , drag = Draggable.init
+    }
+
+
+type alias Position =
+    { x : Float
+    , y : Float
     }
 
 
 type alias ControllerModel =
     { position : Position
-    , drag : Maybe Drag
-    }
-
-
-type alias Drag =
-    { start : Position
-    , current : Position
+    , drag : Draggable.State String
     }

@@ -11,7 +11,7 @@ import Controller exposing (..)
 selectArea : Model -> Html Msg
 selectArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ controller model.controller Nav
+        [ controller model Nav
         , div []
             [ text "Select Area" ]
         ]

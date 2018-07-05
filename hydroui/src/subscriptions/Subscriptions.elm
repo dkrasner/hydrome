@@ -1,9 +1,10 @@
 module Subscriptions exposing (..)
 
+import Draggable
 import Model exposing (Model, model)
-import Update exposing (Msg)
+import Update exposing (..)
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
+subscriptions { drag } =
+    Draggable.subscriptions DragMsg drag

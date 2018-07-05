@@ -1,10 +1,10 @@
 module Controller exposing (..)
 
 import Html exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, on)
 import Html.Attributes exposing (class, placeholder, style, id, property, attribute, type_)
-import DragEvents exposing (onDragStart, onDragEnd)
-import Model exposing (ControllerModel, controllerModel)
+import Draggable
+import Model exposing (Model)
 import Update exposing (..)
 
 
@@ -18,7 +18,7 @@ type Controllertype
     | Nav
 
 
-controller : ControllerModel -> Controllertype -> Html Msg
+controller : Model -> Controllertype -> Html Msg
 controller model controllertype =
     let
         attrs =
@@ -32,20 +32,20 @@ controller model controllertype =
             ]
 
 
-controllerAttrs : ControllerModel -> Controllertype -> List (Attribute msg)
+controllerAttrs : Model -> Controllertype -> List (Attribute Msg)
 controllerAttrs model controllertype =
     case controllertype of
         Nav ->
             let
-                x =
-                    toString model.position.x ++ "px"
+                xy =
+                    model.controllerXY
 
-                y =
-                    toString model.position.y ++ "px"
+                translate =
+                    "translate(" ++ (toString xy.x) ++ "px, " ++ (toString xy.y) ++ "px)"
             in
-                [ attribute "draggable" "true"
+                [ Draggable.mouseTrigger "my-element" DragMsg
                 , class "controller nav"
-                , style [ ( "top", x ), ( "right", y ) ]
+                , style [ ( "transform", translate ) ]
                 ]
 
         Landing ->

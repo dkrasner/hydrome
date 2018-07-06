@@ -30,6 +30,7 @@ html {
     height: 6.5vw;
     width: 6.5vw;
     font-size: .6vw;
+    z-index: 100;
 }
 
 .controller:hover {
@@ -103,10 +104,14 @@ html {
     transform-origin: 180% 0% 0px;
 }
 
+.select {
+    background-color: #75a9b5;
+}
 
-.selectarea {
+.select .area {
     box-shadow: 3px 3px 1px grey;
     display: flex;
+    background-color: #cecece;
 }
 
 .block {

@@ -18,6 +18,8 @@ type alias Model =
     , drag : Draggable.State String
     , hydroModels : List HydroModel
     , hydroDomains : List HydroDomain
+    , stageModel : HydroModel
+    , stageDomain : HydroDomain
     }
 
 
@@ -54,6 +56,8 @@ model =
         , hydroDomain
         , hydroDomain
         ]
+    , stageModel = HydroModel "TestModel" [ "test" ]
+    , stageDomain = HydroDomain "TestDomain"
     }
 
 

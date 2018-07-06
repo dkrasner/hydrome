@@ -21,10 +21,10 @@ selectArea model =
                 """
 
         modelBlocks =
-            List.map modelBlock model.hydroModels
+            List.indexedMap modelBlock model.hydroModels
 
         domainBlocks =
-            List.map domainBlock model.hydroDomains
+            List.indexedMap domainBlock model.hydroDomains
     in
         div [ class "row h-100 justify-content-center align-items-center select" ]
             [ controller model Nav
@@ -35,15 +35,23 @@ selectArea model =
             ]
 
 
-domainBlock : Model.HydroDomain -> Html Msg
-domainBlock hydrodomain =
-    div [ class "block border border-secondary rounded" ]
+domainBlock : Int -> Model.HydroDomain -> Html Msg
+domainBlock index hydrodomain =
+    div
+        [ class "block border border-secondary rounded"
+        , id (toString index)
+        , onClick (DomainSelect index)
+        ]
         [ div [] [ text hydrodomain.name ]
         ]
 
 
-modelBlock : Model.HydroModel -> Html Msg
-modelBlock hydromodel =
-    div [ class "block border border-secondary rounded" ]
+modelBlock : Int -> Model.HydroModel -> Html Msg
+modelBlock index hydromodel =
+    div
+        [ class "block border border-secondary rounded"
+        , id (toString index)
+        , onClick (ModelSelect index)
+        ]
         [ div [] [ text hydromodel.name ]
         ]

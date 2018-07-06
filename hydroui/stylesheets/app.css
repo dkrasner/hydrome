@@ -102,3 +102,20 @@ html {
     transform: rotate(-45deg);
     transform-origin: 180% 0% 0px;
 }
+
+
+.selectarea {
+    box-shadow: 3px 3px 1px grey;
+    display: flex;
+}
+
+.block {
+    padding: 1vw;
+    font-size: .65vw;
+    font-family: Impact;
+    height: 6.5vw;
+    width: 6.5vw;
+    margin: .5vw;
+    text-align: center;
+    background-color: #488A99;
+} 

@@ -18,18 +18,28 @@ selectArea model =
 
         modelBlocks =
             List.map modelBlock model.hydroModels
+
+        domainBlocks =
+            List.map domainBlock model.hydroDomains
     in
         div [ class "row h-100 justify-content-center align-items-center" ]
             [ controller model Nav
             , div [ selectClass ]
                 [ div [ class "row" ] modelBlocks ]
             , div [ selectClass ]
-                [ text "Select Domain Area" ]
+                [ div [ class "row" ] domainBlocks ]
             ]
+
+
+domainBlock : Model.HydroDomain -> Html Msg
+domainBlock hydrodomain =
+    div [ class "block border" ]
+        [ div [] [ text hydrodomain.name ]
+        ]
 
 
 modelBlock : Model.HydroModel -> Html Msg
 modelBlock hydromodel =
-    div [ class "block" ]
+    div [ class "block border" ]
         [ div [] [ text hydromodel.name ]
         ]

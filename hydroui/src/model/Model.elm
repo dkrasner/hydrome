@@ -17,12 +17,18 @@ type alias Model =
     , controllerXY : Position
     , drag : Draggable.State String
     , hydroModels : List HydroModel
+    , hydroDomains : List HydroDomain
     }
 
 
 type alias HydroModel =
     { name : String
     , args : List String
+    }
+
+
+type alias HydroDomain =
+    { name : String
     }
 
 
@@ -40,11 +46,37 @@ model =
         , hydroModel
         , hydroModel
         ]
+    , hydroDomains =
+        [ hydroDomain1
+        , hydroDomain2
+        , hydroDomain
+        , hydroDomain
+        , hydroDomain
+        , hydroDomain
+        ]
     }
 
 
 
--- TODO: temp holder for models, get from api later
+-- TODO: temp holder for models/domain, get from api later
+
+
+hydroDomain : HydroDomain
+hydroDomain =
+    { name = "HydroDomain"
+    }
+
+
+hydroDomain1 : HydroDomain
+hydroDomain1 =
+    { name = "HydroDomain1"
+    }
+
+
+hydroDomain2 : HydroDomain
+hydroDomain2 =
+    { name = "HydroDomain2"
+    }
 
 
 hydroModel : HydroModel

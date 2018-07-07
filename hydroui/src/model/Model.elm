@@ -19,19 +19,21 @@ type alias Model =
     , drag : Draggable.State String
     , hydroModels : Array HydroModel
     , hydroDomains : Array HydroDomain
-    , stageModel : HydroModel
-    , stageDomain : HydroDomain
+    , stageModel : Maybe HydroModel
+    , stageDomain : Maybe HydroDomain
     }
 
 
 type alias HydroModel =
     { name : String
     , args : List String
+    , id : Int
     }
 
 
 type alias HydroDomain =
     { name : String
+    , id : Int
     }
 
 
@@ -42,8 +44,8 @@ model =
     , drag = Draggable.init
     , hydroModels = allModels -- TODO! remove
     , hydroDomains = allDomains -- TODO! remove
-    , stageModel = HydroModel "TestModel" [ "test" ]
-    , stageDomain = HydroDomain "TestDomain"
+    , stageModel = Nothing
+    , stageDomain = Nothing
     }
 
 
@@ -53,70 +55,32 @@ model =
 
 allModels : Array HydroModel
 allModels =
-    fromList
-        [ hydroModel1
-        , hydroModel2
-        , hydroModel3
-        , hydroModel
-        , hydroModel
-        , hydroModel
-        , hydroModel
-        ]
+    Array.map hydroModel (Array.initialize 10 identity)
 
 
 allDomains : Array HydroDomain
 allDomains =
-    fromList
-        [ hydroDomain1
-        , hydroDomain2
-        , hydroDomain
-        , hydroDomain
-        , hydroDomain
-        , hydroDomain
-        ]
+    Array.map hydroDomain (Array.initialize 10 identity)
 
 
-hydroDomain : HydroDomain
-hydroDomain =
-    { name = "HydroDomain"
-    }
+hydroDomain : Int -> HydroDomain
+hydroDomain did =
+    let
+        name =
+            "HydroDomain" ++ toString did
+    in
+        { name = name
+        , id = did
+        }
 
 
-hydroDomain1 : HydroDomain
-hydroDomain1 =
-    { name = "HydroDomain1"
-    }
-
-
-hydroDomain2 : HydroDomain
-hydroDomain2 =
-    { name = "HydroDomain2"
-    }
-
-
-hydroModel : HydroModel
-hydroModel =
-    { name = "HydroModel"
-    , args = [ "a1", "a2", "a3" ]
-    }
-
-
-hydroModel1 : HydroModel
-hydroModel1 =
-    { name = "HydroModel1"
-    , args = [ "a1", "a2", "a3" ]
-    }
-
-
-hydroModel2 : HydroModel
-hydroModel2 =
-    { name = "HydroModel2"
-    , args = [ "a1", "a2", "a3" ]
-    }
-
-
-hydroModel3 : HydroModel
-hydroModel3 =
-    { name = "HydroModel3"
-    , args = [ "a3", "a2", "a3" ]
-    }
+hydroModel : Int -> HydroModel
+hydroModel mid =
+    let
+        name =
+            "HydroModel" ++ toString mid
+    in
+        { name = name
+        , args = [ "a1", "a2", "a3" ]
+        , id = mid
+        }

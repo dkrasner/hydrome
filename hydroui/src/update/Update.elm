@@ -1,5 +1,6 @@
 module Update exposing (..)
 
+import Array
 import Draggable
 import Model exposing (Model, Position)
 
@@ -23,11 +24,11 @@ update msg model =
         ChangeArea area ->
             ( { model | area = area }, Cmd.none )
 
-        ModelSelect id ->
-            ( { model | stageModel = model.stageModel }, Cmd.none )
+        ModelSelect index ->
+            ( { model | stageModel = Array.get index model.hydroModels }, Cmd.none )
 
-        DomainSelect id ->
-            ( { model | stageDomain = model.stageDomain }, Cmd.none )
+        DomainSelect index ->
+            ( { model | stageDomain = Array.get index model.hydroDomains }, Cmd.none )
 
         OnDragBy ( dx, dy ) ->
             let

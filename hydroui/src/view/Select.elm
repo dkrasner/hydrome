@@ -23,8 +23,17 @@ selectArea model =
         modelBlocks =
             Array.toList (Array.indexedMap modelBlock model.hydroModels)
 
+        stageDomainId =
+            getStageId "domain" model
+
         domainBlocks =
-            Array.toList (Array.indexedMap domainBlock model.hydroDomains)
+            Array.toList
+                (Array.map
+                    (domainBlock
+                        stageDomainId
+                    )
+                    model.hydroDomains
+                )
     in
         div [ class "row h-100 justify-content-center align-items-center select" ]
             [ controller model Nav
@@ -35,23 +44,49 @@ selectArea model =
             ]
 
 
+getStageId : String -> Model -> Int
+getStageId stageType model =
+    case model.stageDomain of
+        Nothing ->
+            -1
+
+        Just stageDomain ->
+            stageDomain.id
+
+
 domainBlock : Int -> Model.HydroDomain -> Html Msg
-domainBlock index hydrodomain =
-    div
-        [ class "block border border-secondary rounded"
-        , id (toString index)
-        , onClick (DomainSelect index)
-        ]
-        [ div [] [ text hydrodomain.name ]
-        ]
+domainBlock stageId hydrodomain =
+    let
+        domainId =
+            hydrodomain.id
+
+        classString =
+            blockClass domainId stageId
+    in
+        div
+            [ class classString
+            , id (toString domainId)
+            , onClick (DomainSelect domainId)
+            ]
+            [ div [ class "align-self-center" ] [ text hydrodomain.name ]
+            ]
+
+
+blockClass : Int -> Int -> String
+blockClass did sid =
+    if did == sid then
+        "block selected d-flex justify-content-center border border-secondary rounded"
+    else
+        "block d-flex justify-content-center border border-secondary rounded"
 
 
 modelBlock : Int -> Model.HydroModel -> Html Msg
 modelBlock index hydromodel =
     div
-        [ class "block border border-secondary rounded"
+        [ class "block d-flex justify-content-center border border-secondary rounded"
+        , id (toString index)
         , id (toString index)
         , onClick (ModelSelect index)
         ]
-        [ div [] [ text hydromodel.name ]
+        [ div [ class "align-self-center" ] [ text hydromodel.name ]
         ]

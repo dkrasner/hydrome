@@ -123,4 +123,9 @@ html {
     margin: .5vw;
     text-align: center;
     background-color: #488A99;
-} 
+    cursor: pointer;
+}
+
+.block.selected {
+    background-color: #AC3E31;
+}

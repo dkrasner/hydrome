@@ -1,5 +1,6 @@
 module Model exposing (..)
 
+import Array exposing (Array, fromList)
 import Draggable
 
 
@@ -16,8 +17,8 @@ type alias Model =
     { area : String
     , controllerXY : Position
     , drag : Draggable.State String
-    , hydroModels : List HydroModel
-    , hydroDomains : List HydroDomain
+    , hydroModels : Array HydroModel
+    , hydroDomains : Array HydroDomain
     , stageModel : HydroModel
     , stageDomain : HydroDomain
     }
@@ -39,7 +40,20 @@ model =
     { area = "Landing"
     , controllerXY = Position 580 -250
     , drag = Draggable.init
-    , hydroModels =
+    , hydroModels = allModels -- TODO! remove
+    , hydroDomains = allDomains -- TODO! remove
+    , stageModel = HydroModel "TestModel" [ "test" ]
+    , stageDomain = HydroDomain "TestDomain"
+    }
+
+
+
+-- TODO: temp holder for models/domain, get from api later
+
+
+allModels : Array HydroModel
+allModels =
+    fromList
         [ hydroModel1
         , hydroModel2
         , hydroModel3
@@ -48,7 +62,11 @@ model =
         , hydroModel
         , hydroModel
         ]
-    , hydroDomains =
+
+
+allDomains : Array HydroDomain
+allDomains =
+    fromList
         [ hydroDomain1
         , hydroDomain2
         , hydroDomain
@@ -56,13 +74,6 @@ model =
         , hydroDomain
         , hydroDomain
         ]
-    , stageModel = HydroModel "TestModel" [ "test" ]
-    , stageDomain = HydroDomain "TestDomain"
-    }
-
-
-
--- TODO: temp holder for models/domain, get from api later
 
 
 hydroDomain : HydroDomain

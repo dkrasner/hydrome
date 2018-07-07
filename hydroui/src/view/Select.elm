@@ -3,7 +3,7 @@ module Select exposing (selectArea)
 import Html exposing (..)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (class, placeholder, style, id, property, attribute, type_)
-import List
+import Array
 import Model exposing (Model)
 import Update exposing (..)
 import Controller exposing (..)
@@ -21,10 +21,10 @@ selectArea model =
                 """
 
         modelBlocks =
-            List.indexedMap modelBlock model.hydroModels
+            Array.toList (Array.indexedMap modelBlock model.hydroModels)
 
         domainBlocks =
-            List.indexedMap domainBlock model.hydroDomains
+            Array.toList (Array.indexedMap domainBlock model.hydroDomains)
     in
         div [ class "row h-100 justify-content-center align-items-center select" ]
             [ controller model Nav

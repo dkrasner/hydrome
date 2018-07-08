@@ -20,11 +20,20 @@ selectArea model =
                 area
                 """
 
+        stageModelId =
+            getStageModelId model
+
         modelBlocks =
-            Array.toList (Array.indexedMap modelBlock model.hydroModels)
+            Array.toList
+                (Array.map
+                    (modelBlock
+                        stageModelId
+                    )
+                    model.hydroModels
+                )
 
         stageDomainId =
-            getStageId "domain" model
+            getStageDomainId model
 
         domainBlocks =
             Array.toList
@@ -44,8 +53,18 @@ selectArea model =
             ]
 
 
-getStageId : String -> Model -> Int
-getStageId stageType model =
+getStageModelId : Model -> Int
+getStageModelId model =
+    case model.stageModel of
+        Nothing ->
+            -1
+
+        Just stageModel ->
+            stageModel.id
+
+
+getStageDomainId : Model -> Int
+getStageDomainId model =
     case model.stageDomain of
         Nothing ->
             -1
@@ -54,6 +73,8 @@ getStageId stageType model =
             stageDomain.id
 
 
+{-| Creates a block visual object for domain selection/manipulation
+-}
 domainBlock : Int -> Model.HydroDomain -> Html Msg
 domainBlock stageId hydrodomain =
     let
@@ -62,31 +83,48 @@ domainBlock stageId hydrodomain =
 
         classString =
             blockClass domainId stageId
+
+        name =
+            hydrodomain.name
     in
         div
             [ class classString
             , id (toString domainId)
             , onClick (DomainSelect domainId)
             ]
-            [ div [ class "align-self-center" ] [ text hydrodomain.name ]
+            [ div [ class "align-self-center" ] [ text name ]
             ]
 
 
+{-| Creates a block visual object for model selection/manipulation
+-}
+modelBlock : Int -> Model.HydroModel -> Html Msg
+modelBlock stageId hydromodel =
+    let
+        modelId =
+            hydromodel.id
+
+        classString =
+            blockClass modelId stageId
+
+        name =
+            hydromodel.name
+    in
+        div
+            [ class classString
+            , id (toString modelId)
+            , onClick (ModelSelect modelId)
+            ]
+            [ div [ class "align-self-center" ] [ text name ]
+            ]
+
+
+{-| Helper function that selects proper css class if bock Id == stage Id, i.e.
+the color of a block is different if it has been selected for staging
+-}
 blockClass : Int -> Int -> String
-blockClass did sid =
-    if did == sid then
+blockClass blockId stageId =
+    if blockId == stageId then
         "block selected d-flex justify-content-center border border-secondary rounded"
     else
         "block d-flex justify-content-center border border-secondary rounded"
-
-
-modelBlock : Int -> Model.HydroModel -> Html Msg
-modelBlock index hydromodel =
-    div
-        [ class "block d-flex justify-content-center border border-secondary rounded"
-        , id (toString index)
-        , id (toString index)
-        , onClick (ModelSelect index)
-        ]
-        [ div [ class "align-self-center" ] [ text hydromodel.name ]
-        ]

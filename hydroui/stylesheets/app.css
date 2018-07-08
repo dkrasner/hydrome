@@ -2,6 +2,7 @@
  * Note these will overwrite bootstrap classes
  */
 
+/* Global css */
 body {
     height: 100%;
 }
@@ -10,6 +11,7 @@ html {
     height: 100%;
 }
 
+/* Controller (landing and nav) */
 .controller {
     position: relative;
     font-family: Impact;
@@ -61,12 +63,12 @@ html {
 
 .right {
     transform: rotate(-45deg);
-    background-color: #AC3E31;
+    background-color: #6AB187;
 } 
 
 .bottom {
     transform: rotate(45deg);
-    background-color: #6AB187;
+    background-color: #AC3E31;
 }
 
 .top {
@@ -104,6 +106,8 @@ html {
     transform-origin: 180% 0% 0px;
 }
 
+
+/* Model/Domain Select Area*/
 .select {
     background-color: #75a9b5;
 }
@@ -127,5 +131,17 @@ html {
 }
 
 .block.selected {
-    background-color: #AC3E31;
+    background-color: #6AB187;
+}
+
+/* Staging Area */
+ 
+.stage {
+    background-color: #5a9673;
+    }
+
+.stage .area {
+    box-shadow: 3px 3px 1px grey;
+    display: flex;
+    background-color: #cecece;
 }

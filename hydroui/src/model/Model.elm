@@ -21,6 +21,7 @@ type alias Model =
     , drag : Draggable.State String
     , hydroModels : Array HydroModel
     , hydroDomains : Array HydroDomain
+    , hydroScheduler : HydroScheduler
     , stageModel : Maybe HydroModel
     , stageDomain : Maybe HydroDomain
     }
@@ -33,6 +34,7 @@ model =
     , drag = Draggable.init
     , hydroModels = allModels -- TODO! remove
     , hydroDomains = allDomains -- TODO! remove
+    , hydroScheduler = hydroScheduler
     , stageModel = Nothing
     , stageDomain = Nothing
     }
@@ -40,6 +42,23 @@ model =
 
 
 --Hydro types
+
+
+{-| All possible argument types; Note these are explicit and the compiler
+will force us to check on every type branch for all arg related functions
+-}
+type HydroArgType
+    = Int
+    | String
+    | Bool
+
+
+type alias HydroArg =
+    { name : String
+    , default : String -- all arguments are strings; they arrive this way over http
+    , options : List String
+    , argtype : HydroArgType --TODO: this is reduntant but maybe ok for now
+    }
 
 
 {-| TODO: it might be ok to combine HydroModel and HydroDomain into a single type
@@ -59,20 +78,24 @@ type alias HydroDomain =
     }
 
 
-{-| All possible argument types; Note these are explicit and the compiler
-will force us to check on every type branch for all arg related functions
--}
-type HydroArgType
-    = Int
-    | String
-    | Bool
+type alias HydroScheduler =
+    { job_name : HydroArg
+    , account : HydroArg
+    , nproc : HydroArg
+    , ppn : HydroArg
+    , email_when : HydroArg
+    , walltime : HydroArg
+    }
 
 
-type alias HydroArg =
-    { name : String
-    , default : String -- all arguments are strings; they arrive this way over http
-    , options : List String
-    , argtype : HydroArgType --TODO: this is reduntant but maybe ok for now
+hydroScheduler : HydroScheduler
+hydroScheduler =
+    { job_name = HydroArg "job_name" "Your Job Name" [] String
+    , account = HydroArg "account" "Your Account" [] String
+    , nproc = HydroArg "nproc" "1" [ "1:100" ] Int
+    , ppn = HydroArg "ppn" "36" [ "1:100" ] Int
+    , email_when = HydroArg "email_when" "abe" [ "abe" ] Int
+    , walltime = HydroArg "walltime" "Current Time" [] String --TODO: update this with current time
     }
 
 

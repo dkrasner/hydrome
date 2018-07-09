@@ -7,6 +7,8 @@ import Draggable
 -- MODEL
 
 
+{-| a position, i.e. coordinate type alias, for the controller/nav object
+-}
 type alias Position =
     { x : Float
     , y : Float
@@ -24,9 +26,28 @@ type alias Model =
     }
 
 
+model : Model
+model =
+    { area = "Landing"
+    , controllerXY = Position 580 -250 -- Top-Right corner
+    , drag = Draggable.init
+    , hydroModels = allModels -- TODO! remove
+    , hydroDomains = allDomains -- TODO! remove
+    , stageModel = Nothing
+    , stageDomain = Nothing
+    }
+
+
+
+--Hydro types
+
+
+{-| TODO: it might be ok to combine HydroModel and HydroDomain into a single type
+-}
 type alias HydroModel =
     { name : String
-    , args : List String
+    , args : List HydroArg
+    , compile_args : List HydroArg
     , id : Int
     }
 
@@ -34,18 +55,24 @@ type alias HydroModel =
 type alias HydroDomain =
     { name : String
     , id : Int
+    , args : List HydroArg
     }
 
 
-model : Model
-model =
-    { area = "Landing"
-    , controllerXY = Position 580 -250
-    , drag = Draggable.init
-    , hydroModels = allModels -- TODO! remove
-    , hydroDomains = allDomains -- TODO! remove
-    , stageModel = Nothing
-    , stageDomain = Nothing
+{-| All possible argument types; Note these are explicit and the compiler
+will force us to check on every type branch for all arg related functions
+-}
+type HydroArgType
+    = Int
+    | String
+    | Bool
+
+
+type alias HydroArg =
+    { name : String
+    , default : String -- all arguments are strings; they arrive this way over http
+    , options : List String
+    , argtype : HydroArgType --TODO: this is reduntant but maybe ok for now
     }
 
 
@@ -71,6 +98,13 @@ hydroDomain did =
     in
         { name = name
         , id = did
+        , args =
+            [ HydroArg
+                "source_dir"
+                "/wrf_hydro_nwm_public/trunk/NDHMS/"
+                [ "/wrf_hydro_nwm_public/trunk/NDHMS/" ]
+                String
+            ]
         }
 
 
@@ -81,6 +115,34 @@ hydroModel mid =
             "HydroModel" ++ toString mid
     in
         { name = name
-        , args = [ "a1", "a2", "a3" ]
+        , args =
+            [ HydroArg
+                "source_dir"
+                "/wrf_hydro_nwm_public/trunk/NDHMS/"
+                [ "/wrf_hydro_nwm_public/trunk/NDHMS/" ]
+                String
+            , HydroArg
+                "model_config"
+                "NWM"
+                [ "NWM" ]
+                String
+            ]
+        , compile_args =
+            [ HydroArg
+                "compiler"
+                "gfort"
+                [ "gfort" ]
+                String
+            , HydroArg
+                "compile_dir"
+                "/tmp"
+                [ "/tmp" ]
+                String
+            , HydroArg
+                "overwrite"
+                "True"
+                [ "True", "False" ]
+                Bool
+            ]
         , id = mid
         }

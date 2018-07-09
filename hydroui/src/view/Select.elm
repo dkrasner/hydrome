@@ -15,7 +15,7 @@ selectArea model =
         selectClass =
             class
                 """
-                col col-4 h-75 pt-2 pl-4 m-1
+                col m-4 pl-4
                 border border-secondary rounded shadow
                 area
                 """
@@ -45,11 +45,13 @@ selectArea model =
                 )
     in
         div [ class "row h-100 justify-content-center align-items-center select" ]
-            [ controller model Nav
-            , div [ selectClass ]
-                [ div [ class "row" ] modelBlocks ]
-            , div [ selectClass ]
-                [ div [ class "row" ] domainBlocks ]
+            [ div [ class "row w-75 pr-4 pl-4 h-75 justify-content-center" ]
+                [ controller model Nav
+                , div [ selectClass ]
+                    [ div [ class "row" ] modelBlocks ]
+                , div [ selectClass ]
+                    [ div [ class "row" ] domainBlocks ]
+                ]
             ]
 
 

@@ -116,6 +116,7 @@ html {
     box-shadow: 3px 3px 1px grey;
     display: flex;
     background-color: #cecece;
+    overflow-y: auto;
 }
 
 .block {
@@ -144,4 +145,5 @@ html {
     box-shadow: 3px 3px 1px grey;
     display: flex;
     background-color: #cecece;
+    overflow-y: auto;
 }

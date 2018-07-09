@@ -42,10 +42,16 @@ controllerAttrs model controllertype =
 
                 translate =
                     "translate(" ++ (toString xy.x) ++ "px, " ++ (toString xy.y) ++ "px)"
+
+                x =
+                    (toString xy.x) ++ "px"
+
+                y =
+                    (toString xy.y) ++ "px"
             in
                 [ Draggable.mouseTrigger "my-element" DragMsg
                 , class "controller nav"
-                , style [ ( "transform", translate ) ]
+                , style [ ( "top", y ), ( "left", x ) ]
                 ]
 
         Landing ->

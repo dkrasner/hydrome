@@ -30,7 +30,7 @@ type alias Model =
 model : Model
 model =
     { area = "Landing"
-    , controllerXY = Position 580 -250 -- Top-Right corner
+    , controllerXY = Position 25 25 -- top left corner
     , drag = Draggable.init
     , hydroModels = allModels -- TODO! remove
     , hydroDomains = allDomains -- TODO! remove

@@ -17,14 +17,14 @@ stageArea model =
         div [ class "row h-100 justify-content-center align-items-center stage" ]
             [ controller model Nav
             , div [ rowStageClass ]
-                [ div [ class "col mt-5 mr-4 justify-content-center area" ]
+                [ div [ class "col mt-5 mr-4 justify-content-center area border rounded" ]
                     [ stageModelArea model ]
-                , div [ class "col mt-5 ml-4 justify-content-center area" ]
+                , div [ class "col mt-5 ml-4 justify-content-center area border rounded" ]
                     [ stageDomainArea model ]
                 ]
             , div [ rowStageClass ]
-                [ div [ class "col mt-5 mb-5 justify-content-center area" ]
-                    [ text "Scheduler Stage Area" ]
+                [ div [ class "col mt-5 mb-5 justify-content-center area border rounded" ]
+                    [ stageSchedulerArea model ]
                 ]
             ]
 
@@ -49,3 +49,8 @@ stageDomainArea model =
 
         Just stageDomain ->
             h3 [] [ text stageDomain.name ]
+
+
+stageSchedulerArea : Model -> Html Msg
+stageSchedulerArea model =
+    h3 [] [ text "Scheduler" ]

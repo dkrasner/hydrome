@@ -19,6 +19,8 @@ html {
     overflow: hidden;
     transition: all 1s;
     cursor: pointer;
+    animation-name: componentIn;
+    animation-duration: 2s;
 }
 
 .controller.landing {
@@ -107,6 +109,22 @@ html {
 }
 
 
+
+/* Areas */
+@keyframes componentIn {
+    from {
+    opacity: 0;
+}
+    to {
+    opacity: 1.0;
+}
+}
+
+.area {
+    animation-name: componentIn;
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.7);
+}
 /* Model/Domain Select Area*/
 .select {
     background-color: #75a9b5;

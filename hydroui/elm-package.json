@@ -8,7 +8,8 @@
         "src/View",
         "src/Model",
         "src/Update",
-        "src/Subscriptions"
+        "src/Subscriptions",
+        "src/Messages"
     ],
     "exposed-modules": [],
     "dependencies": {

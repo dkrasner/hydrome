@@ -1,4 +1,4 @@
-module Model exposing (..)
+module Model exposing (Model, model)
 
 import Array exposing (Array, fromList)
 

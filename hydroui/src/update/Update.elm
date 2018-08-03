@@ -1,14 +1,12 @@
 module Update exposing (..)
 
 import Model exposing (Model)
-
-
-type Msg
-    = ChangeArea String
+import Messages as M
+import Messages exposing (Msg)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        ChangeArea area ->
+        M.ChangeArea area ->
             ( { model | area = area }, Cmd.none )

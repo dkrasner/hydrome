@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Events exposing (onClick)
 import Html.Attributes exposing (class, placeholder, style, id, property, attribute, type_)
 import Model exposing (Model, model)
-import Update exposing (..)
+import Messages exposing (Msg)
 
 
 view : Model -> Html Msg

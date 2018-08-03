@@ -8,10 +8,16 @@ import Update exposing (..)
 import Controller exposing (..)
 
 
+--TODO remove
+
+import Input exposing (slider)
+
+
 feedbackArea : Model -> Html Msg
 feedbackArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
         [ controller model Nav
         , div []
             [ text "Feedback Area" ]
+        , slider
         ]

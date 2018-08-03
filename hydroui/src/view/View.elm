@@ -5,11 +5,6 @@ import Html.Events exposing (onClick)
 import Html.Attributes exposing (class, placeholder, style, id, property, attribute, type_)
 import Model exposing (Model, model)
 import Update exposing (..)
-import Select exposing (selectArea)
-import Stage exposing (stageArea)
-import Run exposing (runArea)
-import Feedback exposing (feedbackArea)
-import Controller exposing (..)
 
 
 view : Model -> Html Msg
@@ -21,26 +16,14 @@ view model =
 areaSelector : Model -> Html Msg
 areaSelector model =
     case model.area of
-        "Landing" ->
-            landingArea model
-
-        "Select" ->
-            selectArea model
-
-        "Stage" ->
-            stageArea model
-
-        "Run" ->
-            runArea model
-
-        "Feedback" ->
-            feedbackArea model
+        "Main" ->
+            mainArea model
 
         _ ->
             div [] [ text "Outer space" ]
 
 
-landingArea : Model -> Html Msg
-landingArea model =
+mainArea : Model -> Html Msg
+mainArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ controller model Landing ]
+        [ text "this is the landing area" ]

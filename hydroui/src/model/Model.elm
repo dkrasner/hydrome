@@ -1,42 +1,19 @@
 module Model exposing (..)
 
 import Array exposing (Array, fromList)
-import Draggable
 
 
 -- MODEL
 
 
-{-| a position, i.e. coordinate type alias, for the controller/nav object
--}
-type alias Position =
-    { x : Float
-    , y : Float
-    }
-
-
 type alias Model =
     { area : String
-    , controllerXY : Position
-    , drag : Draggable.State String
-    , hydroModels : Array HydroModel
-    , hydroDomains : Array HydroDomain
-    , hydroScheduler : HydroScheduler
-    , stageModel : Maybe HydroModel
-    , stageDomain : Maybe HydroDomain
     }
 
 
 model : Model
 model =
-    { area = "Landing"
-    , controllerXY = Position 25 25 -- top left corner
-    , drag = Draggable.init
-    , hydroModels = allModels -- TODO! remove
-    , hydroDomains = allDomains -- TODO! remove
-    , hydroScheduler = hydroScheduler
-    , stageModel = Nothing
-    , stageDomain = Nothing
+    { area = "Main"
     }
 
 

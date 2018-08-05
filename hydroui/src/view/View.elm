@@ -26,4 +26,11 @@ areaSelector model =
 mainArea : Model -> Html Msg
 mainArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
-        [ text "this is the landing area" ]
+        [ div [ class "control-view-panel row" ]
+            [ div [ class "panel left col col-2" ] [ text "left panel" ]
+            , div [ class "display col" ]
+                [ text "display" ]
+            , div [ class "panel right col col-2" ] [ text "right panel" ]
+            ]
+        , div [ class "panel lower row " ] [ text "lower panel" ]
+        ]

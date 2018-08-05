@@ -5,8 +5,54 @@
 /* Global css */
 body {
     height: 100%;
+    background-color: black;
 }
 
 html {
     height: 100%;
+}
+
+.main {
+    border: solid .5rem black;
+    border-radius: 1rem;
+    background-color: #632e08;
+    /*background-color: #040404cc;*/
+}
+
+.control-view-panel{
+    width: 100%;
+    height: 70%
+}
+
+.panel {
+	border: solid .2rem;
+    margin: .5rem;
+	border-radius: 1%;
+}
+
+.panel.left {
+}
+
+.panel.right {
+}
+
+.display {
+    box-shadow:inset 0px 0px 20px 20px #cccbcb;
+	border-style: solid inset solid solid;
+    border-color: #cccbcb;
+    border-width: 1rem;
+    border-radius: 4rem;
+    background-color: teal;
+    margin: 1%;
+}
+
+.display-inner {
+    height:100%;
+    width: 100%;
+    box-shadow: 0px -16px teal;
+}
+
+.panel.lower {
+    width: 100%;
+    height: 25%
 }

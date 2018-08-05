@@ -27,10 +27,43 @@ mainArea : Model -> Html Msg
 mainArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
         [ div [ class "control-view-panel row" ]
-            [ div [ class "panel left col col-2" ] [ text "left panel" ]
+            [ leftPanel
             , div [ class "display col" ]
                 [ text "display" ]
             , div [ class "panel right col col-2" ] [ text "right panel" ]
             ]
         , div [ class "panel lower row " ] [ text "lower panel" ]
         ]
+
+
+leftPanel : Html Msg
+leftPanel =
+    let
+        controllerCss =
+            """
+            controller
+            row h-25
+            justify-content-center align-items-center
+            """
+
+        dialCss =
+            """
+            dial
+            d-flex
+            justify-content-center align-items-center
+            """
+    in
+        div [ class "panel left col col-2" ]
+            [ div [ class controllerCss ]
+                [ div [ class dialCss ] [ text "M" ]
+                ]
+            , div [ class controllerCss ]
+                [ div [ class dialCss ] [ text "D" ]
+                ]
+            , div [ class controllerCss ]
+                [ div [ class dialCss ] [ text "J" ]
+                ]
+            , div [ class controllerCss ]
+                [ div [ class dialCss ] [ text "S" ]
+                ]
+            ]

@@ -12,7 +12,16 @@ html {
     height: 100%;
 }
 
-button:focus {outline:0;}
+button:focus {
+    border-color: teal;
+    color: teal;
+    outline: 0;
+}
+
+button:hover {
+    border-color: teal;
+    outline: 0;
+}
 
 .main {
     border: solid .5rem black;
@@ -84,12 +93,24 @@ button:focus {outline:0;}
 
 .display .name {
     height: 10%;
-    font-size: 1.2vw;
+    font-size: 1.4vw;
 }
 
 .display .args {
-    overflow-y: auto;
     height: 80%;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.display .args .argdoc {
+    z-index: 0;
+    position: absolute;
+    opacity: 0;
+}
+
+.display .args-input ~ .argdoc:focus {
+    position: initial;
+    opacity: 1.0;
 }
 
 button.init {
@@ -100,12 +121,3 @@ button.init {
 }
 
 
-button:focus {
-    border-color: teal;
-    color: teal;
-}
-
-button:hover {
-    border-color: teal;
-    color: teal;
-}

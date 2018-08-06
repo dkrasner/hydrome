@@ -12,6 +12,7 @@ import Html.Attributes
         , attribute
         , type_
         , tabindex
+        , defaultValue
         , value
         , for
         )
@@ -86,16 +87,19 @@ argsDisplay model =
                             []
 
         argInputGroup a =
-            div [ class "input-group input-group-sm mb-3" ]
-                [ div [ class "input-group-prepend" ]
-                    [ span [ class "input-group-text", id a.name ] [ text a.name ] ]
-                , input
-                    [ type_ "text"
-                    , class "form-control"
-                    , placeholder a.default
-                    , for a.name
+            div [ class "w-100 arg-inner" ]
+                [ div [ class "args-input input-group input-group-sm mb-3" ]
+                    [ div [ class "input-group-prepend" ]
+                        [ span [ class "input-group-text", id a.name ] [ text a.name ] ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , value a.default
+                        , for a.name
+                        ]
+                        []
                     ]
-                    []
+                , div [ class "argdoc" ] [ text a.doc ]
                 ]
 
         argsDiv =
@@ -133,7 +137,8 @@ leftPanel =
                     , tabindex 1
                     , onFocus (M.Display "Model")
                     , onMouseOver (M.Display "Model")
-                    , onMouseLeave (M.Display "**** READY ****")
+
+                    --, onMouseLeave (M.Display "**** READY ****")
                     ]
                     [ text "M" ]
                 ]
@@ -143,7 +148,8 @@ leftPanel =
                     , tabindex 2
                     , onFocus (M.Display "Domain")
                     , onMouseOver (M.Display "Domain")
-                    , onMouseLeave (M.Display "**** READY ****")
+
+                    --    , onMouseLeave (M.Display "**** READY ****")
                     ]
                     [ text "D" ]
                 ]
@@ -153,7 +159,8 @@ leftPanel =
                     , tabindex 3
                     , onFocus (M.Display "Jobs")
                     , onMouseOver (M.Display "Jobs")
-                    , onMouseLeave (M.Display "**** READY ****")
+
+                    --  , onMouseLeave (M.Display "**** READY ****")
                     ]
                     [ text "J" ]
                 ]
@@ -163,7 +170,8 @@ leftPanel =
                     , tabindex 4
                     , onFocus (M.Display "Scheduler")
                     , onMouseOver (M.Display "Scheduler")
-                    , onMouseLeave (M.Display "**** READY ****")
+
+                    --, onMouseLeave (M.Display "**** READY ****")
                     ]
                     [ text "S" ]
                 ]

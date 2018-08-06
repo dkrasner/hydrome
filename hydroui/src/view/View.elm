@@ -12,7 +12,10 @@ import Html.Attributes
         , attribute
         , type_
         , tabindex
+        , value
+        , for
         )
+import List
 import Model exposing (Model, model)
 import Messages as M
 import Messages exposing (Msg)
@@ -50,12 +53,61 @@ display : Model -> Html Msg
 display model =
     div [ class "display col" ]
         [ div [ class "row justify-content-center align-items-center h-75" ]
-            [ text model.display
+            [ div [ style [ ( "font-size", "1.2vw" ) ] ]
+                [ text model.display ]
+            , argsDisplay model
             ]
         , div [ class "row justify-content-center align-items-center h-25" ]
             [ button [ class "init", tabindex 5 ] [ text "init" ]
             ]
         ]
+
+
+argsDisplay : Model -> Html Msg
+argsDisplay model =
+    let
+        args =
+            model.display
+                |> \name ->
+                    case name of
+                        "Model" ->
+                            model.hydroModel.args
+
+                        "Domain" ->
+                            model.hydroDomain.args
+
+                        "Jobs" ->
+                            model.hydroJobs.args
+
+                        "Scheduler" ->
+                            model.hydroScheduler.args
+
+                        _ ->
+                            []
+
+        argInputGroup a =
+            div [ class "input-group mb-3" ]
+                [ div [ class "input-group-prepend" ]
+                    [ span [ class "input-group-text", id a.name ] [ text a.name ] ]
+                , input
+                    [ type_ "text"
+                    , class "form-control"
+                    , placeholder a.default
+                    , for a.name
+                    ]
+                    []
+                ]
+
+        argsDiv =
+            div [ class "d-flex flex-wrap" ]
+                (List.map argInputGroup args)
+    in
+        case model.display of
+            "**** READY ****" ->
+                span [] []
+
+            _ ->
+                argsDiv
 
 
 leftPanel : Html Msg
@@ -79,9 +131,9 @@ leftPanel =
                 [ button
                     [ class dialCss
                     , tabindex 1
-                    , onFocus (M.Display "model")
-                    , onMouseOver (M.Display "model")
-                    , onMouseLeave (M.Display "")
+                    , onFocus (M.Display "Model")
+                    , onMouseOver (M.Display "Model")
+                    , onMouseLeave (M.Display "**** READY ****")
                     ]
                     [ text "M" ]
                 ]
@@ -89,9 +141,9 @@ leftPanel =
                 [ button
                     [ class dialCss
                     , tabindex 2
-                    , onFocus (M.Display "domain")
-                    , onMouseOver (M.Display "domain")
-                    , onMouseLeave (M.Display "")
+                    , onFocus (M.Display "Domain")
+                    , onMouseOver (M.Display "Domain")
+                    , onMouseLeave (M.Display "**** READY ****")
                     ]
                     [ text "D" ]
                 ]
@@ -99,9 +151,9 @@ leftPanel =
                 [ button
                     [ class dialCss
                     , tabindex 3
-                    , onFocus (M.Display "jobs")
-                    , onMouseOver (M.Display "jobs")
-                    , onMouseLeave (M.Display "")
+                    , onFocus (M.Display "Jobs")
+                    , onMouseOver (M.Display "Jobs")
+                    , onMouseLeave (M.Display "**** READY ****")
                     ]
                     [ text "J" ]
                 ]
@@ -109,9 +161,9 @@ leftPanel =
                 [ button
                     [ class dialCss
                     , tabindex 4
-                    , onFocus (M.Display "scheduler")
-                    , onMouseOver (M.Display "scheduler")
-                    , onMouseLeave (M.Display "")
+                    , onFocus (M.Display "Scheduler")
+                    , onMouseOver (M.Display "Scheduler")
+                    , onMouseLeave (M.Display "**** READY ****")
                     ]
                     [ text "S" ]
                 ]

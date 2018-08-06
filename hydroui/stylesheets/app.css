@@ -69,6 +69,7 @@ button:focus {outline:0;}
     border-radius: 4rem;
     background-color: teal;
     margin: 1%;
+    font-family: C64 Pro;
 }
 
 .display-inner {
@@ -87,8 +88,10 @@ button.init {
 
 button:focus {
     border-color: teal;
+    color: teal;
 }
 
 button:hover {
     border-color: teal;
+    color: teal;
 }

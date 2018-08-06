@@ -23,7 +23,7 @@ model =
     , hydroDomain = hydroDomain
     , hydroJobs = hydroJobs
     , hydroScheduler = hydroScheduler
-    , display = ""
+    , display = "**** READY ****"
     }
 
 

@@ -44,7 +44,7 @@ type alias HydroArg =
     { name : String
     , default : String -- all arguments are strings; they arrive this way over http
     , options : List String
-    , description : String
+    , doc : String
     , argtype : HydroArgType --TODO: this is reduntant but maybe ok for now
     }
 

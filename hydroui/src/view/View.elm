@@ -28,11 +28,20 @@ mainArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
         [ div [ class "control-view-panel row" ]
             [ leftPanel
-            , div [ class "display col" ]
-                [ text "display" ]
+            , display model
             , div [ class "panel right col col-2" ] [ text "right panel" ]
             ]
         , div [ class "panel lower row " ] [ text "lower panel" ]
+        ]
+
+
+display : Model -> Html Msg
+display model =
+    div [ class "display col" ]
+        [ div [ class "row justify-content-center align-items-center h-75" ] [ text "arg area" ]
+        , div [ class "row justify-content-center align-items-center h-25" ]
+            [ button [ class "init" ] [ text "init" ]
+            ]
         ]
 
 

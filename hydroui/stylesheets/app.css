@@ -30,8 +30,6 @@ html {
 	border-radius: 1%;
 }
 
-.panel.left {
-}
 
 .panel.right {
 }
@@ -44,12 +42,16 @@ html {
 .controller {
 }
 
+/* left panel */
+.panel.left {
+}
+
 .dial {
     background-color: black;
     width: 8rem;
     height: 8rem;
     border-radius: 50%;
-	border-style: solid inset solid solid;
+	border-style: dashed;
     border-color: #cccbcb;
     border-width: .1rem;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
@@ -57,6 +59,8 @@ html {
     font-size: 4rem;
 }
 
+
+/* param display and init are */
 .display {
     box-shadow:inset 0px 0px 20px 20px #cccbcb;
 	border-style: solid inset solid solid;
@@ -71,4 +75,11 @@ html {
     height:100%;
     width: 100%;
     box-shadow: 0px -16px teal;
+}
+
+button.init {
+    width: 8vw;
+    height: 1.5vw;
+    border-radius: 1vw;
+    background-color: silver;
 }

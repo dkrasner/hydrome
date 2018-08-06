@@ -1,7 +1,7 @@
 module View exposing (..)
 
 import Html exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onFocus, onMouseOver, onMouseLeave)
 import Html.Attributes
     exposing
         ( class
@@ -14,6 +14,7 @@ import Html.Attributes
         , tabindex
         )
 import Model exposing (Model, model)
+import Messages as M
 import Messages exposing (Msg)
 
 
@@ -48,7 +49,9 @@ mainArea model =
 display : Model -> Html Msg
 display model =
     div [ class "display col" ]
-        [ div [ class "row justify-content-center align-items-center h-75" ] [ text "arg area" ]
+        [ div [ class "row justify-content-center align-items-center h-75" ]
+            [ text model.display
+            ]
         , div [ class "row justify-content-center align-items-center h-25" ]
             [ button [ class "init", tabindex 5 ] [ text "init" ]
             ]
@@ -73,15 +76,43 @@ leftPanel =
     in
         div [ class "panel left col col-2" ]
             [ div [ class controllerCss ]
-                [ button [ class dialCss, tabindex 1 ] [ text "M" ]
+                [ button
+                    [ class dialCss
+                    , tabindex 1
+                    , onFocus (M.Display "model")
+                    , onMouseOver (M.Display "model")
+                    , onMouseLeave (M.Display "")
+                    ]
+                    [ text "M" ]
                 ]
             , div [ class controllerCss ]
-                [ button [ class dialCss, tabindex 2 ] [ text "D" ]
+                [ button
+                    [ class dialCss
+                    , tabindex 2
+                    , onFocus (M.Display "domain")
+                    , onMouseOver (M.Display "domain")
+                    , onMouseLeave (M.Display "")
+                    ]
+                    [ text "D" ]
                 ]
             , div [ class controllerCss ]
-                [ button [ class dialCss, tabindex 3 ] [ text "J" ]
+                [ button
+                    [ class dialCss
+                    , tabindex 3
+                    , onFocus (M.Display "jobs")
+                    , onMouseOver (M.Display "jobs")
+                    , onMouseLeave (M.Display "")
+                    ]
+                    [ text "J" ]
                 ]
             , div [ class controllerCss ]
-                [ button [ class dialCss, tabindex 4 ] [ text "S" ]
+                [ button
+                    [ class dialCss
+                    , tabindex 4
+                    , onFocus (M.Display "scheduler")
+                    , onMouseOver (M.Display "scheduler")
+                    , onMouseLeave (M.Display "")
+                    ]
+                    [ text "S" ]
                 ]
             ]

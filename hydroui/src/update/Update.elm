@@ -10,3 +10,6 @@ update msg model =
     case msg of
         M.ChangeArea area ->
             ( { model | area = area }, Cmd.none )
+
+        M.Display name ->
+            ( { model | display = name }, Cmd.none )

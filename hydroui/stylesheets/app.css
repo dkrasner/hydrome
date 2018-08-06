@@ -88,3 +88,7 @@ button.init {
 button:focus {
     border-color: teal;
 }
+
+button:hover {
+    border-color: teal;
+}

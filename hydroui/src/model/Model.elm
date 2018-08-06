@@ -12,6 +12,7 @@ type alias Model =
     , hydroDomain : HydroDomain
     , hydroJobs : HydroJobs
     , hydroScheduler : HydroScheduler
+    , display : String
     }
 
 
@@ -22,6 +23,7 @@ model =
     , hydroDomain = hydroDomain
     , hydroJobs = hydroJobs
     , hydroScheduler = hydroScheduler
+    , display = ""
     }
 
 

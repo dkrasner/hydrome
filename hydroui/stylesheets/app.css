@@ -78,6 +78,20 @@ button:focus {outline:0;}
     box-shadow: 0px -16px teal;
 }
 
+.display .init {
+    height: 10%;
+}
+
+.display .name {
+    height: 10%;
+    font-size: 1.2vw;
+}
+
+.display .args {
+    overflow-y: auto;
+    height: 80%;
+}
+
 button.init {
     width: 8vw;
     height: 1.5vw;

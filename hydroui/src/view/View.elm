@@ -52,12 +52,12 @@ mainArea model =
 display : Model -> Html Msg
 display model =
     div [ class "display col" ]
-        [ div [ class "row justify-content-center align-items-center h-75" ]
-            [ div [ style [ ( "font-size", "1.2vw" ) ] ]
+        [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
+            [ div [ class "row name" ]
                 [ text model.display ]
             , argsDisplay model
             ]
-        , div [ class "row justify-content-center align-items-center h-25" ]
+        , div [ class "row justify-content-center align-items-center" ]
             [ button [ class "init", tabindex 5 ] [ text "init" ]
             ]
         ]
@@ -86,7 +86,7 @@ argsDisplay model =
                             []
 
         argInputGroup a =
-            div [ class "input-group mb-3" ]
+            div [ class "input-group input-group-sm mb-3" ]
                 [ div [ class "input-group-prepend" ]
                     [ span [ class "input-group-text", id a.name ] [ text a.name ] ]
                 , input
@@ -99,7 +99,7 @@ argsDisplay model =
                 ]
 
         argsDiv =
-            div [ class "d-flex flex-wrap" ]
+            div [ class "d-flex flex-wrap p-4 args" ]
                 (List.map argInputGroup args)
     in
         case model.display of

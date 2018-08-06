@@ -23,6 +23,13 @@ button:hover {
     outline: 0;
 }
 
+/* bootstrap tooltip override */
+.tooltip-inner {
+    max-width: 350px;
+    font-size: .7vw;
+    background-color: black;
+}
+
 .main {
     border: solid .5rem black;
     border-radius: 1rem;

@@ -87,18 +87,29 @@ argsDisplay model =
                             []
 
         argInputGroup a =
-            div [ class "input-group input-group-sm mb-3" ]
-                [ div
-                    [ class "input-group-prepend"
+            div [ class "w-100 d-flex" ]
+                [ div [ class "input-group input-group-sm mb-3" ]
+                    [ div
+                        [ class "input-group-prepend"
+                        ]
+                        [ span [ class "input-group-text", id a.name ] [ text a.name ] ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , value a.default
+                        , for a.name
+                        ]
+                        []
                     ]
-                    [ span [ class "input-group-text", id a.name ] [ text a.name ] ]
-                , input
-                    [ type_ "text"
-                    , class "form-control"
-                    , value a.default
-                    , for a.name
+                , div
+                    [ class "mb-3 pt-1 pl-1 justify-content-center align-items-center"
+                    , attribute "data-toggle" "tooltip"
+                    , attribute "data-placement" "top"
+                    , attribute "data-html" "true"
+                    , attribute "title" a.doc
+                    , style [ ( "cursor", "pointer" ) ]
                     ]
-                    []
+                    [ span [] [ text "?" ] ]
                 ]
 
         argsDiv =

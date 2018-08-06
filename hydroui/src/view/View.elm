@@ -2,7 +2,17 @@ module View exposing (..)
 
 import Html exposing (..)
 import Html.Events exposing (onClick)
-import Html.Attributes exposing (class, placeholder, style, id, property, attribute, type_)
+import Html.Attributes
+    exposing
+        ( class
+        , placeholder
+        , style
+        , id
+        , property
+        , attribute
+        , type_
+        , tabindex
+        )
 import Model exposing (Model, model)
 import Messages exposing (Msg)
 
@@ -40,7 +50,7 @@ display model =
     div [ class "display col" ]
         [ div [ class "row justify-content-center align-items-center h-75" ] [ text "arg area" ]
         , div [ class "row justify-content-center align-items-center h-25" ]
-            [ button [ class "init" ] [ text "init" ]
+            [ button [ class "init", tabindex 5 ] [ text "init" ]
             ]
         ]
 
@@ -50,7 +60,6 @@ leftPanel =
     let
         controllerCss =
             """
-            controller
             row h-25
             justify-content-center align-items-center
             """
@@ -64,15 +73,15 @@ leftPanel =
     in
         div [ class "panel left col col-2" ]
             [ div [ class controllerCss ]
-                [ div [ class dialCss ] [ text "M" ]
+                [ button [ class dialCss, tabindex 1 ] [ text "M" ]
                 ]
             , div [ class controllerCss ]
-                [ div [ class dialCss ] [ text "D" ]
+                [ button [ class dialCss, tabindex 2 ] [ text "D" ]
                 ]
             , div [ class controllerCss ]
-                [ div [ class dialCss ] [ text "J" ]
+                [ button [ class dialCss, tabindex 3 ] [ text "J" ]
                 ]
             , div [ class controllerCss ]
-                [ div [ class dialCss ] [ text "S" ]
+                [ button [ class dialCss, tabindex 4 ] [ text "S" ]
                 ]
             ]

@@ -12,6 +12,8 @@ html {
     height: 100%;
 }
 
+button:focus {outline:0;}
+
 .main {
     border: solid .5rem black;
     border-radius: 1rem;
@@ -39,9 +41,6 @@ html {
     height: 25%
 }
 
-.controller {
-}
-
 /* left panel */
 .panel.left {
 }
@@ -57,6 +56,7 @@ html {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
     color: white;
     font-size: 4rem;
+    cursor: pointer;
 }
 
 
@@ -82,4 +82,9 @@ button.init {
     height: 1.5vw;
     border-radius: 1vw;
     background-color: silver;
+}
+
+
+button:focus {
+    border-color: teal;
 }

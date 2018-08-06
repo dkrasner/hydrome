@@ -25,12 +25,19 @@
 <body>
     <div id="app"></div>
     <script src="main.js"></script>
-    <script>
-        var app = Elm.Main.fullscreen();
-    </script>
     <script src="jquery-3.2.1.slim.min.js"></script>
     <script src="popper.min.js"></script>
     <script src="bootstrap-4.0.0/bootstrap.min.js"></script>
+    <script>
+        var app = Elm.Main.fullscreen();
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-toggle="tooltip"]').on('click', function () {
+                    $(this).tooltip('hide')
+            })
+        })
+
+    </script>
     <!--
         REMOTE Bootstrap JS Dependencies
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

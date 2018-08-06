@@ -87,8 +87,10 @@ argsDisplay model =
                             []
 
         argInputGroup a =
-            div [ class "arg-input input-group input-group-sm mb-3", tabindex 0 ]
-                [ div [ class "input-group-prepend" ]
+            div [ class "input-group input-group-sm mb-3" ]
+                [ div
+                    [ class "input-group-prepend"
+                    ]
                     [ span [ class "input-group-text", id a.name ] [ text a.name ] ]
                 , input
                     [ type_ "text"

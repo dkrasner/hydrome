@@ -102,17 +102,6 @@ button:hover {
     z-index: 1;
 }
 
-.display .args .argdoc {
-    z-index: 0;
-    position: absolute;
-    opacity: 0;
-}
-
-.display .args-input ~ .argdoc:focus {
-    position: initial;
-    opacity: 1.0;
-}
-
 button.init {
     width: 8vw;
     height: 1.5vw;

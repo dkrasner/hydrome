@@ -13,13 +13,10 @@ html {
 }
 
 button:focus {
-    border-color: teal;
-    color: teal;
     outline: 0;
 }
 
 button:hover {
-    border-color: teal;
     outline: 0;
 }
 

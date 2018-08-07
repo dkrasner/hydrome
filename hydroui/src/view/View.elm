@@ -42,7 +42,7 @@ mainArea : Model -> Html Msg
 mainArea model =
     div [ class "row h-100 justify-content-center align-items-center" ]
         [ div [ class "control-view-panel row" ]
-            [ leftPanel
+            [ leftPanel model
             , display model
             , div [ class "panel right col col-2" ] [ text "right panel" ]
             ]
@@ -124,8 +124,8 @@ argsDisplay model =
                 argsDiv
 
 
-leftPanel : Html Msg
-leftPanel =
+leftPanel : Model -> Html Msg
+leftPanel model =
     let
         controllerCss =
             """
@@ -139,50 +139,30 @@ leftPanel =
             d-flex
             justify-content-center align-items-center
             """
+
+        controller name symbol model =
+            div [ class controllerCss ]
+                [ button
+                    [ class dialCss
+                    , style (dialStyle model name)
+                    , tabindex 1
+                    , onFocus (M.Display name)
+                    , onMouseOver (M.Display name)
+                    ]
+                    [ text symbol ]
+                ]
     in
         div [ class "panel left col col-2" ]
-            [ div [ class controllerCss ]
-                [ button
-                    [ class dialCss
-                    , tabindex 1
-                    , onFocus (M.Display "Model")
-                    , onMouseOver (M.Display "Model")
-
-                    --, onMouseLeave (M.Display "**** READY ****")
-                    ]
-                    [ text "M" ]
-                ]
-            , div [ class controllerCss ]
-                [ button
-                    [ class dialCss
-                    , tabindex 2
-                    , onFocus (M.Display "Domain")
-                    , onMouseOver (M.Display "Domain")
-
-                    --    , onMouseLeave (M.Display "**** READY ****")
-                    ]
-                    [ text "D" ]
-                ]
-            , div [ class controllerCss ]
-                [ button
-                    [ class dialCss
-                    , tabindex 3
-                    , onFocus (M.Display "Jobs")
-                    , onMouseOver (M.Display "Jobs")
-
-                    --  , onMouseLeave (M.Display "**** READY ****")
-                    ]
-                    [ text "J" ]
-                ]
-            , div [ class controllerCss ]
-                [ button
-                    [ class dialCss
-                    , tabindex 4
-                    , onFocus (M.Display "Scheduler")
-                    , onMouseOver (M.Display "Scheduler")
-
-                    --, onMouseLeave (M.Display "**** READY ****")
-                    ]
-                    [ text "S" ]
-                ]
+            [ controller "Model" "M" model
+            , controller "Domain" "D" model
+            , controller "Jobs" "J" model
+            , controller "Scheduler" "S" model
             ]
+
+
+dialStyle : Model -> String -> List ( String, String )
+dialStyle model name =
+    if (model.display == name) then
+        [ ( "color", "teal" ), ( "border-color", "teal" ) ]
+    else
+        []

@@ -59,7 +59,11 @@ display model =
             , argsDisplay model
             ]
         , div [ class "row justify-content-center align-items-center" ]
-            [ button [ class "init", tabindex 5 ] [ text "init" ]
+            [ button
+                [ class "init"
+                , tabindex 5
+                ]
+                [ text "init" ]
             ]
         ]
 
@@ -91,8 +95,12 @@ argsDisplay model =
                 [ div [ class "input-group input-group-sm mb-3" ]
                     [ div
                         [ class "input-group-prepend"
+                        , attribute "data-toggle" "popover"
+                        , attribute "data-placement" "left"
+                        , attribute "title" "This is a title"
+                        , attribute "data-content" "Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
                         ]
-                        [ span [ class "input-group-text", id a.name ] [ text a.name ] ]
+                        [ span [ class "input-group-text" ] [ text a.name ] ]
                     , input
                         [ type_ "text"
                         , class "form-control"
@@ -101,15 +109,6 @@ argsDisplay model =
                         ]
                         []
                     ]
-                , div
-                    [ class "mb-3 pt-1 pl-1 justify-content-center align-items-center"
-                    , attribute "data-toggle" "tooltip"
-                    , attribute "data-placement" "top"
-                    , attribute "data-html" "true"
-                    , attribute "title" a.doc
-                    , style [ ( "cursor", "pointer" ) ]
-                    ]
-                    [ span [] [ text "?" ] ]
                 ]
 
         argsDiv =

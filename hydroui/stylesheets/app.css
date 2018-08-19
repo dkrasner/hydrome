@@ -60,19 +60,36 @@ button:hover {
 
 .dial {
     background-color: black;
-    width: 8rem;
-    height: 8rem;
+    width: 16vh;
+    height: 16vh;
     border-radius: 50%;
 	border-style: dashed;
     border-color: #cccbcb;
-    border-width: .1rem;
+    border-width: .1vh;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.1);
     color: white;
-    font-size: 4rem;
+    font-size: 8vh;
     cursor: pointer;
 }
 
+@media only screen and (max-width: 1500px) {
+    .dial {
+		width: 15vw;
+		height: 15vw;
+		font-size: 8vw;
+		border-width: .1vw;
+    }
+}
 
+
+@media only screen and (max-width: 1500px) and (max-height: 1150px) {
+    .dial {
+		width: 13vw;
+		height: 13vw;
+		font-size: 6vw;
+		border-width: .1vw;
+    }
+}
 /* param display and init are */
 .display {
     box-shadow:inset 0px 0px 20px 20px #cccbcb;

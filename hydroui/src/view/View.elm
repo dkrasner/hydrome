@@ -151,7 +151,7 @@ leftPanel model =
                     [ text symbol ]
                 ]
     in
-        div [ class "panel left col col-2" ]
+        div [ class "panel left col" ]
             [ controller "Model" "M" model
             , controller "Domain" "D" model
             , controller "Jobs" "J" model

@@ -1,7 +1,14 @@
 module View exposing (..)
 
 import Html exposing (..)
-import Html.Events exposing (onClick, onFocus, onMouseOver, onMouseLeave)
+import Html.Events
+    exposing
+        ( onClick
+        , onFocus
+        , onMouseOver
+        , onMouseLeave
+        , onInput
+        )
 import Html.Attributes
     exposing
         ( class
@@ -106,6 +113,7 @@ argsDisplay model =
                         , class "form-control"
                         , value a.default
                         , for a.name
+                        , onInput (M.UpdateArgValue model.display a.name)
                         ]
                         []
                     ]

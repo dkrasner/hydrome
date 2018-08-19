@@ -1,4 +1,4 @@
-module Model exposing (Model, model)
+module Model exposing (Model, model, HydroArg)
 
 import Array exposing (Array, fromList)
 

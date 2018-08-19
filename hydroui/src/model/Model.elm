@@ -1,6 +1,7 @@
 module Model exposing (Model, model, HydroArg)
 
 import Array exposing (Array, fromList)
+import Messages as M
 
 
 -- MODEL
@@ -13,6 +14,7 @@ type alias Model =
     , hydroJobs : HydroJobs
     , hydroScheduler : HydroScheduler
     , display : String
+    , displayMode : M.HydroObject
     }
 
 
@@ -24,6 +26,7 @@ model =
     , hydroJobs = hydroJobs
     , hydroScheduler = hydroScheduler
     , display = "**** READY ****"
+    , displayMode = M.NoObject
     }
 
 
@@ -49,8 +52,6 @@ type alias HydroArg =
     }
 
 
-{-| TODO: it might be ok to combine HydroModel and HydroDomain into a single type
--}
 type alias HydroModel =
     { id : String
     , args : List HydroArg

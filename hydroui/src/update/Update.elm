@@ -11,14 +11,14 @@ update msg model =
         M.ChangeArea area ->
             ( { model | area = area }, Cmd.none )
 
-        M.Display name ->
-            ( { model | display = name }, Cmd.none )
+        M.Display name hydroObject ->
+            ( { model | display = name, displayMode = hydroObject }, Cmd.none )
 
-        M.UpdateArgValue name arg value ->
-            ( name
+        M.UpdateArgValue object arg value ->
+            ( object
                 |> \n ->
-                    case name of
-                        "Model" ->
+                    case object of
+                        M.HydroModelObject ->
                             { model
                                 | hydroModel =
                                     let
@@ -28,7 +28,7 @@ update msg model =
                                         { hydro | args = List.map (updateArgValue arg value) hydro.args }
                             }
 
-                        "Domain" ->
+                        M.HydroDomainObject ->
                             { model
                                 | hydroDomain =
                                     let
@@ -38,7 +38,7 @@ update msg model =
                                         { hydro | args = List.map (updateArgValue arg value) hydro.args }
                             }
 
-                        "Jobs" ->
+                        M.HydroJobsObject ->
                             { model
                                 | hydroJobs =
                                     let
@@ -48,7 +48,7 @@ update msg model =
                                         { hydro | args = List.map (updateArgValue arg value) hydro.args }
                             }
 
-                        "Scheduler" ->
+                        M.HydroSchedulerObject ->
                             { model
                                 | hydroScheduler =
                                     let

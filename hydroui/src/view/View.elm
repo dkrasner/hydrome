@@ -79,19 +79,19 @@ argsDisplay : Model -> Html Msg
 argsDisplay model =
     let
         args =
-            model.display
-                |> \name ->
-                    case name of
-                        "Model" ->
+            model.displayMode
+                |> \object ->
+                    case object of
+                        M.HydroModelObject ->
                             model.hydroModel.args
 
-                        "Domain" ->
+                        M.HydroDomainObject ->
                             model.hydroDomain.args
 
-                        "Jobs" ->
+                        M.HydroJobsObject ->
                             model.hydroJobs.args
 
-                        "Scheduler" ->
+                        M.HydroSchedulerObject ->
                             model.hydroScheduler.args
 
                         _ ->
@@ -113,7 +113,7 @@ argsDisplay model =
                         , class "form-control"
                         , value a.default
                         , for a.name
-                        , onInput (M.UpdateArgValue model.display a.name)
+                        , onInput (M.UpdateArgValue model.displayMode a.name)
                         ]
                         []
                     ]
@@ -147,23 +147,23 @@ leftPanel model =
             justify-content-center align-items-center
             """
 
-        controller name symbol model =
+        controller name hydroObject symbol model =
             div [ class controllerCss ]
                 [ button
                     [ class dialCss
                     , style (dialStyle model name)
                     , tabindex 1
-                    , onFocus (M.Display name)
-                    , onMouseOver (M.Display name)
+                    , onFocus (M.Display name hydroObject)
+                    , onMouseOver (M.Display name hydroObject)
                     ]
                     [ text symbol ]
                 ]
     in
         div [ class "panel left col" ]
-            [ controller "Model" "M" model
-            , controller "Domain" "D" model
-            , controller "Jobs" "J" model
-            , controller "Scheduler" "S" model
+            [ controller "Model" M.HydroModelObject "M" model
+            , controller "Domain" M.HydroDomainObject "D" model
+            , controller "Jobs" M.HydroJobsObject "J" model
+            , controller "Scheduler" M.HydroSchedulerObject "S" model
             ]
 
 

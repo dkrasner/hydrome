@@ -14,6 +14,27 @@ update msg model =
         M.Display name hydroObject ->
             ( { model | display = name, displayMode = hydroObject }, Cmd.none )
 
+        M.AddToInstances ->
+            ( model.displayMode
+                |> \mode ->
+                    case mode of
+                        M.HydroModelObject ->
+                            { model | hydroModelInstances = model.hydroModel :: model.hydroModelInstances }
+
+                        M.HydroDomainObject ->
+                            { model | hydroDomainInstances = model.hydroDomain :: model.hydroDomainInstances }
+
+                        M.HydroJobsObject ->
+                            { model | hydroJobsInstances = model.hydroJobs :: model.hydroJobsInstances }
+
+                        M.HydroSchedulerObject ->
+                            { model | hydroSchedulerInstances = model.hydroScheduler :: model.hydroSchedulerInstances }
+
+                        M.NoObject ->
+                            model
+            , Cmd.none
+            )
+
         M.UpdateArgValue object arg value ->
             ( object
                 |> \n ->
@@ -58,7 +79,7 @@ update msg model =
                                         { hydro | args = List.map (updateArgValue arg value) hydro.args }
                             }
 
-                        _ ->
+                        M.NoObject ->
                             model
             , Cmd.none
             )

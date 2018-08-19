@@ -13,6 +13,10 @@ type alias Model =
     , hydroDomain : HydroDomain
     , hydroJobs : HydroJobs
     , hydroScheduler : HydroScheduler
+    , hydroModelInstances : List HydroModel
+    , hydroDomainInstances : List HydroDomain
+    , hydroJobsInstances : List HydroJobs
+    , hydroSchedulerInstances : List HydroScheduler
     , display : String
     , displayMode : M.HydroObject
     }
@@ -25,6 +29,10 @@ model =
     , hydroDomain = hydroDomain
     , hydroJobs = hydroJobs
     , hydroScheduler = hydroScheduler
+    , hydroModelInstances = []
+    , hydroDomainInstances = []
+    , hydroJobsInstances = []
+    , hydroSchedulerInstances = []
     , display = "**** READY ****"
     , displayMode = M.NoObject
     }

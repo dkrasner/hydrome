@@ -69,6 +69,7 @@ display model =
             [ button
                 [ class "init"
                 , tabindex 5
+                , onClick M.AddToInstances
                 ]
                 [ text "init" ]
             ]

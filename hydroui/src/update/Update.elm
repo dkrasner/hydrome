@@ -19,16 +19,68 @@ update msg model =
                 |> \mode ->
                     case mode of
                         M.HydroModelObject ->
-                            { model | hydroModelInstances = model.hydroModel :: model.hydroModelInstances }
+                            { model
+                                | hydroModelInstances =
+                                    let
+                                        l =
+                                            List.length model.hydroModelInstances
+
+                                        id =
+                                            l |> (\n -> n + 1) |> toString |> (\s -> "M_" ++ s)
+
+                                        hydroModel =
+                                            model.hydroModel
+                                    in
+                                        { hydroModel | id = id } :: model.hydroModelInstances
+                            }
 
                         M.HydroDomainObject ->
-                            { model | hydroDomainInstances = model.hydroDomain :: model.hydroDomainInstances }
+                            { model
+                                | hydroDomainInstances =
+                                    let
+                                        l =
+                                            List.length model.hydroDomainInstances
+
+                                        id =
+                                            l |> (\n -> n + 1) |> toString |> (\s -> "D_" ++ s)
+
+                                        hydroDomain =
+                                            model.hydroDomain
+                                    in
+                                        { hydroDomain | id = id } :: model.hydroDomainInstances
+                            }
 
                         M.HydroJobsObject ->
-                            { model | hydroJobsInstances = model.hydroJobs :: model.hydroJobsInstances }
+                            { model
+                                | hydroJobsInstances =
+                                    let
+                                        l =
+                                            List.length model.hydroJobsInstances
+
+                                        id =
+                                            l |> (\n -> n + 1) |> toString |> (\s -> "J_" ++ s)
+
+                                        hydroJobs =
+                                            model.hydroJobs
+                                    in
+                                        { hydroJobs | id = id } :: model.hydroJobsInstances
+                            }
 
                         M.HydroSchedulerObject ->
-                            { model | hydroSchedulerInstances = model.hydroScheduler :: model.hydroSchedulerInstances }
+                            { model
+                                | hydroSchedulerInstances =
+                                    let
+                                        l =
+                                            List.length model.hydroSchedulerInstances
+
+                                        id =
+                                            l |> (\n -> n + 1) |> toString |> (\s -> "S_" ++ s)
+
+                                        hydroScheduler =
+                                            model.hydroScheduler
+                                    in
+                                        { hydroScheduler | id = id } :: model.hydroSchedulerInstances
+                            }
 
                         M.NoObject ->
                             model

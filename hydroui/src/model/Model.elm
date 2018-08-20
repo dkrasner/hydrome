@@ -19,6 +19,7 @@ type alias Model =
     , hydroSchedulerInstances : List HydroScheduler
     , display : String
     , displayMode : M.HydroObject
+    , displayObjectId : String
     }
 
 
@@ -35,6 +36,7 @@ model =
     , hydroSchedulerInstances = []
     , display = "**** READY ****"
     , displayMode = M.NoObject
+    , displayObjectId = ""
     }
 
 

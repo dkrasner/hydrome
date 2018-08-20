@@ -80,23 +80,60 @@ argsDisplay : Model -> Html Msg
 argsDisplay model =
     let
         args =
-            model.displayMode
-                |> \object ->
+            ( model.displayMode, model.displayObjectId )
+                |> \( object, id ) ->
                     case object of
                         M.HydroModelObject ->
-                            model.hydroModel.args
+                            case id of
+                                "template" ->
+                                    model.hydroModel.args
+
+                                _ ->
+                                    getArgsById id model.hydroModelInstances
 
                         M.HydroDomainObject ->
-                            model.hydroDomain.args
+                            case id of
+                                "template" ->
+                                    model.hydroDomain.args
+
+                                _ ->
+                                    getArgsById id model.hydroDomainInstances
 
                         M.HydroJobsObject ->
-                            model.hydroJobs.args
+                            case id of
+                                "template" ->
+                                    model.hydroJobs.args
+
+                                _ ->
+                                    getArgsById id model.hydroJobsInstances
 
                         M.HydroSchedulerObject ->
-                            model.hydroScheduler.args
+                            case id of
+                                "template" ->
+                                    model.hydroScheduler.args
+
+                                _ ->
+                                    getArgsById id model.hydroSchedulerInstances
 
                         _ ->
                             []
+
+        getArgsById id instances =
+            let
+                instance =
+                    instances
+                        |> List.filter
+                            (\i -> (i.id == id))
+                        |> (\items ->
+                                case (List.head items) of
+                                    Just i ->
+                                        i
+
+                                    Nothing ->
+                                        { id = "placeholder", args = [] }
+                           )
+            in
+                instance.args
 
         argInputGroup a =
             div [ class "w-100 d-flex" ]
@@ -158,8 +195,8 @@ leftPanel model =
                     [ class dialCss
                     , style (dialStyle model name)
                     , tabindex 1
-                    , onFocus (M.Display name hydroObject)
-                    , onMouseOver (M.Display name hydroObject)
+                    , onFocus (M.Display name hydroObject "template")
+                    , onMouseOver (M.Display name hydroObject "template")
                     ]
                     [ text symbol ]
                 ]
@@ -210,7 +247,7 @@ rightPanel model =
             justify-content-center align-items-center
             """
 
-        instanceDials hydroObject model =
+        instanceDials hydroObject model defaultString =
             let
                 instances =
                     case hydroObject of
@@ -229,27 +266,32 @@ rightPanel model =
                         M.NoObject ->
                             []
             in
-                List.map
-                    (\i ->
-                        button
-                            [ class dialCss
-                            , tabindex 1
-                            , onClick (M.Display i.id hydroObject)
-                            ]
-                            [ text i.id ]
-                    )
-                    instances
+                case (List.length instances) of
+                    0 ->
+                        [ span [ class "text-center font-weight-bold" ] [ text defaultString ] ]
 
-        instanceController hydroObject model =
+                    _ ->
+                        List.map
+                            (\i ->
+                                button
+                                    [ class dialCss
+                                    , tabindex 1
+                                    , onClick (M.Display i.id hydroObject i.id)
+                                    ]
+                                    [ text i.id ]
+                            )
+                            instances
+
+        instanceController hydroObject model defaultString =
             div
                 [ class controllerCss
                 , style [ ( "overflow-x", "auto" ) ]
                 ]
-                (instanceDials hydroObject model)
+                (instanceDials hydroObject model defaultString)
     in
         div [ class panelCss ]
-            [ instanceController M.HydroModelObject model
-            , instanceController M.HydroDomainObject model
-            , instanceController M.HydroJobsObject model
-            , instanceController M.HydroSchedulerObject model
+            [ instanceController M.HydroModelObject model "Model Instances"
+            , instanceController M.HydroDomainObject model "Domain Instances"
+            , instanceController M.HydroJobsObject model "Jobs Instances"
+            , instanceController M.HydroSchedulerObject model "Scheduler Instances"
             ]

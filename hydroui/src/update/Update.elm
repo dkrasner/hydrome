@@ -11,8 +11,8 @@ update msg model =
         M.ChangeArea area ->
             ( { model | area = area }, Cmd.none )
 
-        M.Display name hydroObject ->
-            ( { model | display = name, displayMode = hydroObject }, Cmd.none )
+        M.Display name hydroObject id ->
+            ( { model | display = name, displayMode = hydroObject, displayObjectId = id }, Cmd.none )
 
         M.AddToInstances ->
             ( model.displayMode

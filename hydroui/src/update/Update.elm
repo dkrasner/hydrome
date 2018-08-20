@@ -87,6 +87,51 @@ update msg model =
             , Cmd.none
             )
 
+        M.DeleteFromInstances ->
+            ( model.displayMode
+                |> \mode ->
+                    case mode of
+                        M.HydroModelObject ->
+                            { model
+                                | hydroModelInstances =
+                                    List.filter (\i -> (i.id /= model.displayObjectId)) model.hydroModelInstances
+                                , display = "**** READY ****"
+                                , displayMode = M.NoObject
+                                , displayObjectId = ""
+                            }
+
+                        M.HydroDomainObject ->
+                            { model
+                                | hydroDomainInstances =
+                                    List.filter (\i -> (i.id /= model.displayObjectId)) model.hydroDomainInstances
+                                , display = "**** READY ****"
+                                , displayMode = M.NoObject
+                                , displayObjectId = ""
+                            }
+
+                        M.HydroJobsObject ->
+                            { model
+                                | hydroJobsInstances =
+                                    List.filter (\i -> (i.id /= model.displayObjectId)) model.hydroJobsInstances
+                                , display = "**** READY ****"
+                                , displayMode = M.NoObject
+                                , displayObjectId = ""
+                            }
+
+                        M.HydroSchedulerObject ->
+                            { model
+                                | hydroSchedulerInstances =
+                                    List.filter (\i -> (i.id /= model.displayObjectId)) model.hydroSchedulerInstances
+                                , display = "**** READY ****"
+                                , displayMode = M.NoObject
+                                , displayObjectId = ""
+                            }
+
+                        M.NoObject ->
+                            model
+            , Cmd.none
+            )
+
         M.UpdateArgValue object arg value ->
             ( object
                 |> \n ->

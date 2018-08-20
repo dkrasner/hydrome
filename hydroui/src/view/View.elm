@@ -23,6 +23,7 @@ import Html.Attributes
         , value
         , for
         )
+import String
 import List
 import Model exposing (Model, model)
 import Messages as M
@@ -66,14 +67,36 @@ display model =
             , argsDisplay model
             ]
         , div [ class "row justify-content-center align-items-center" ]
-            [ button
-                [ class "init"
-                , tabindex 5
-                , onClick M.AddToInstances
-                ]
-                [ text "init" ]
+            [ displayButton model.displayObjectId
             ]
         ]
+
+
+
+{- only "template*" Id objects can be initialized into classes;
+   all others are assumed to be instances and therefor can only be inspected
+   and deleted
+-}
+
+
+displayButton : String -> Html Msg
+displayButton displayId =
+    if (String.startsWith "template" displayId) then
+        button
+            [ class "init"
+            , tabindex 5
+            , onClick M.AddToInstances
+            ]
+            [ text "init" ]
+    else if (displayId == "") then
+        span [] []
+    else
+        button
+            [ class "init text-danger"
+            , tabindex 5
+            , onClick M.DeleteFromInstances
+            ]
+            [ text "delete" ]
 
 
 argsDisplay : Model -> Html Msg

@@ -6,6 +6,7 @@ type Msg
     | Display String HydroObject String -- display string, object type, object id
     | UpdateArgValue HydroObject String String -- HydroObject ArgName ArgValue
     | AddToInstances
+    | DeleteFromInstances
 
 
 type HydroObject

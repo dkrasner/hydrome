@@ -210,30 +210,46 @@ rightPanel model =
             justify-content-center align-items-center
             """
 
-        controller name hydroObject symbol model =
+        instanceDials hydroObject model =
+            let
+                instances =
+                    case hydroObject of
+                        M.HydroModelObject ->
+                            model.hydroModelInstances
+
+                        M.HydroDomainObject ->
+                            model.hydroDomainInstances
+
+                        M.HydroJobsObject ->
+                            model.hydroJobsInstances
+
+                        M.HydroSchedulerObject ->
+                            model.hydroSchedulerInstances
+
+                        M.NoObject ->
+                            []
+            in
+                List.map
+                    (\i ->
+                        button
+                            [ class dialCss
+                            , tabindex 1
+                            , onClick (M.Display i.id hydroObject)
+                            ]
+                            [ text i.id ]
+                    )
+                    instances
+
+        instanceController hydroObject model =
             div
                 [ class controllerCss
                 , style [ ( "overflow-x", "auto" ) ]
                 ]
-                [ button
-                    [ class dialCss
-                    , style (dialStyle model name)
-                    , tabindex 1
-                    , onClick (M.Display name hydroObject)
-                    ]
-                    [ text symbol ]
-                , button
-                    [ class dialCss
-                    , style (dialStyle model name)
-                    , tabindex 1
-                    , onClick (M.Display name hydroObject)
-                    ]
-                    [ text symbol ]
-                ]
+                (instanceDials hydroObject model)
     in
         div [ class panelCss ]
-            [ controller "Model" M.HydroModelObject "M" model
-            , controller "Domain" M.HydroDomainObject "D" model
-            , controller "Jobs" M.HydroJobsObject "J" model
-            , controller "Scheduler" M.HydroSchedulerObject "S" model
+            [ instanceController M.HydroModelObject model
+            , instanceController M.HydroDomainObject model
+            , instanceController M.HydroJobsObject model
+            , instanceController M.HydroSchedulerObject model
             ]

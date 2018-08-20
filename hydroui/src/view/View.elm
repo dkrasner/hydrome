@@ -85,7 +85,7 @@ argsDisplay model =
                     case object of
                         M.HydroModelObject ->
                             case id of
-                                "template" ->
+                                "templateModel" ->
                                     model.hydroModel.args
 
                                 _ ->
@@ -93,7 +93,7 @@ argsDisplay model =
 
                         M.HydroDomainObject ->
                             case id of
-                                "template" ->
+                                "templateDomain" ->
                                     model.hydroDomain.args
 
                                 _ ->
@@ -101,7 +101,7 @@ argsDisplay model =
 
                         M.HydroJobsObject ->
                             case id of
-                                "template" ->
+                                "templateJobs" ->
                                     model.hydroJobs.args
 
                                 _ ->
@@ -109,7 +109,7 @@ argsDisplay model =
 
                         M.HydroSchedulerObject ->
                             case id of
-                                "template" ->
+                                "templateScheduler" ->
                                     model.hydroScheduler.args
 
                                 _ ->
@@ -193,10 +193,10 @@ leftPanel model =
             div [ class controllerCss ]
                 [ button
                     [ class dialCss
-                    , style (dialStyle model name)
+                    , style (dialStyle model ("template" ++ name))
                     , tabindex 1
-                    , onFocus (M.Display name hydroObject "template")
-                    , onMouseOver (M.Display name hydroObject "template")
+                    , onFocus (M.Display name hydroObject ("template" ++ name))
+                    , onMouseOver (M.Display name hydroObject ("template" ++ name))
                     ]
                     [ text symbol ]
                 ]
@@ -210,8 +210,8 @@ leftPanel model =
 
 
 dialStyle : Model -> String -> List ( String, String )
-dialStyle model name =
-    if (model.display == name) then
+dialStyle model id =
+    if (model.displayObjectId == id) then
         [ ( "color", "teal" ), ( "border-color", "teal" ) ]
     else
         []
@@ -275,6 +275,7 @@ rightPanel model =
                             (\i ->
                                 button
                                     [ class dialCss
+                                    , style (dialStyle model i.id)
                                     , tabindex 1
                                     , onClick (M.Display i.id hydroObject i.id)
                                     ]

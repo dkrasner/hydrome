@@ -92,7 +92,7 @@ type alias HydroScheduler =
 
 hydroModel : HydroModel
 hydroModel =
-    { id = "template"
+    { id = "templateModel"
     , args =
         [ HydroArg "source_dir"
             "wrf_hydro_nwm/trunk/NDHMS"
@@ -140,7 +140,7 @@ hydroModel =
 
 hydroDomain : HydroDomain
 hydroDomain =
-    { id = "template"
+    { id = "templateDomain"
     , args =
         [ HydroArg "domain_top_dir"
             "dir name"
@@ -181,7 +181,7 @@ hydroDomain =
 
 hydroJobs : HydroJobs
 hydroJobs =
-    { id = "template"
+    { id = "templateJobs"
     , args =
         [ HydroArg "job_id" "job id" [] "A string identify the job" String
         , HydroArg "model_start_time"
@@ -229,7 +229,7 @@ hydroJobs =
 
 hydroScheduler : HydroScheduler
 hydroScheduler =
-    { id = "template"
+    { id = "templateScheduler"
     , args =
         [ HydroArg "account" "account string" [] "The account string" String
         , HydroArg "email_who" "email@domain" [] "Email address for PBS notifications" String

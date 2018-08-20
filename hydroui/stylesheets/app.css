@@ -47,6 +47,9 @@ button:hover {
 
 
 .panel.right {
+    max-width: 20vh;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .panel.lower {
@@ -75,6 +78,13 @@ button:hover {
     cursor: pointer;
 }
 
+.dial.small {
+    width: 10vh;
+    height: 10vh;
+    font-size: 4vh;
+    margin-left: 5px;
+}
+
 @media only screen and (max-width: 1224px) {
     .dial {
 		width: 10vw;
@@ -84,6 +94,11 @@ button:hover {
     }
     .panel.left {
         max-width: 12vw;
+    }
+    .dial.small {
+        width: 5vh;
+        height: 5vh;
+        font-size: 2vh;
     }
 }
 

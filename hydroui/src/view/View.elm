@@ -51,7 +51,7 @@ mainArea model =
         [ div [ class "control-view-panel row" ]
             [ leftPanel model
             , display model
-            , div [ class "panel right col col-2" ] [ text "right panel" ]
+            , rightPanel model
             ]
         , div [ class "panel lower row " ] [ text "lower panel" ]
         ]
@@ -132,6 +132,10 @@ argsDisplay model =
                 argsDiv
 
 
+
+{--Left Panel Area --}
+
+
 leftPanel : Model -> Html Msg
 leftPanel model =
     let
@@ -174,3 +178,62 @@ dialStyle model name =
         [ ( "color", "teal" ), ( "border-color", "teal" ) ]
     else
         []
+
+
+
+{--Right  Panel Area --}
+
+
+rightPanel : Model -> Html Msg
+rightPanel model =
+    let
+        panelCss =
+            """
+            panel right
+            col
+            d-flex flex-column
+            justify-content-center align-items-center
+            """
+
+        controllerCss =
+            """
+            row h-25 w-100
+            d-flex flex-column
+            justify-content-center align-items-center
+            """
+
+        dialCss =
+            """
+            dial
+            small
+            d-flex
+            justify-content-center align-items-center
+            """
+
+        controller name hydroObject symbol model =
+            div
+                [ class controllerCss
+                , style [ ( "overflow-x", "auto" ) ]
+                ]
+                [ button
+                    [ class dialCss
+                    , style (dialStyle model name)
+                    , tabindex 1
+                    , onClick (M.Display name hydroObject)
+                    ]
+                    [ text symbol ]
+                , button
+                    [ class dialCss
+                    , style (dialStyle model name)
+                    , tabindex 1
+                    , onClick (M.Display name hydroObject)
+                    ]
+                    [ text symbol ]
+                ]
+    in
+        div [ class panelCss ]
+            [ controller "Model" M.HydroModelObject "M" model
+            , controller "Domain" M.HydroDomainObject "D" model
+            , controller "Jobs" M.HydroJobsObject "J" model
+            , controller "Scheduler" M.HydroSchedulerObject "S" model
+            ]

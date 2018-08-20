@@ -140,10 +140,9 @@ argsDisplay model =
                 [ div [ class "input-group input-group-sm mb-3" ]
                     [ div
                         [ class "input-group-prepend"
+                        , style [ ( "cursor", "help" ) ]
                         , attribute "data-toggle" "popover"
-                        , attribute "data-placement" "left"
-                        , attribute "title" "This is a title"
-                        , attribute "data-content" "Vivamus sagittis lacus vel augue laoreet rutrum faucibus."
+                        , attribute "title" a.doc
                         ]
                         [ span [ class "input-group-text" ] [ text a.name ] ]
                     , input

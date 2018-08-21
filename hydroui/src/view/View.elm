@@ -291,7 +291,12 @@ rightPanel model =
             in
                 case (List.length instances) of
                     0 ->
-                        [ span [ class "text-center font-weight-bold" ] [ text defaultString ] ]
+                        [ span
+                            [ class "text-center font-weight-bold"
+                            , style [ ( "font-size", "1vw" ) ]
+                            ]
+                            [ text defaultString ]
+                        ]
 
                     _ ->
                         List.map
@@ -330,6 +335,9 @@ rightPanel model =
 simulationPanel : Model -> Html Msg
 simulationPanel model =
     let
+        hydroSimulation =
+            model.hydroSimulation
+
         controllerCss =
             """
             col w-25
@@ -344,31 +352,45 @@ simulationPanel model =
             justify-content-center align-items-center
             """
 
-        --TODO: this should update based on actions
-        dialStyle =
-            [ ( "cursor", "help" ), ( "opacity", ".4" ) ]
+        controller defaultSymbol hydroSimObject =
+            case hydroSimObject of
+                Just object ->
+                    div [ class controllerCss ]
+                        [ button
+                            [ class dialCss
+                            , style
+                                [ ( "cursor", "pointer" )
+                                , ( "opacity", "1.0" )
+                                , ( "font-size", "2vw" )
+                                , ( "background-color", "teal" )
+                                ]
 
-        controller name hydroObject symbol model =
-            div [ class controllerCss ]
-                [ button
-                    [ class dialCss
-                    , style dialStyle
-                    , tabindex 1
-                    , attribute "data-toggle" "popover"
-                    , attribute "title" "drag & drop instance object to include in simulation"
+                            --, onFocus (M.Display name hydroObject ("template" ++ name))
+                            --, onClick (M.Display i.id hydroObject i.id)
+                            ]
+                            [ text object.id ]
+                        ]
 
-                    --, onFocus (M.Display name hydroObject ("template" ++ name))
-                    --, onClick (M.Display i.id hydroObject i.id)
-                    ]
-                    [ text symbol ]
-                ]
+                Nothing ->
+                    div [ class controllerCss ]
+                        [ button
+                            [ class dialCss
+                            , style [ ( "cursor", "help" ), ( "opacity", ".4" ), ( "font-size", "1vw" ) ]
+                            , attribute "data-toggle" "popover"
+                            , attribute "title" "drag & drop instance object to include in simulation"
+
+                            --, onFocus (M.Display name hydroObject ("template" ++ name))
+                            --, onClick (M.Display i.id hydroObject i.id)
+                            ]
+                            [ text defaultSymbol ]
+                        ]
     in
         div
             ([ class "panel lower row" ]
                 ++ DragDrop.droppable M.DragDropMsg "simulation"
             )
-            [ controller "Model" M.HydroModelObject "M" model
-            , controller "Domain" M.HydroDomainObject "D" model
-            , controller "Jobs" M.HydroJobsObject "J" model
-            , controller "Scheduler" M.HydroSchedulerObject "S" model
+            [ controller "Model Instance" hydroSimulation.model
+            , controller "Domain Instance" hydroSimulation.domain
+            , controller "Jobs Instance" hydroSimulation.jobs
+            , controller "Scheduler Instance" hydroSimulation.scheduler
             ]

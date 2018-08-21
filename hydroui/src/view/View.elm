@@ -343,7 +343,7 @@ simulationPanel model =
 
         --TODO: this should update based on actions
         dialStyle =
-            [ ( "cursor", "initial" ), ( "opacity", ".4" ) ]
+            [ ( "cursor", "help" ), ( "opacity", ".4" ) ]
 
         controller name hydroObject symbol model =
             div [ class controllerCss ]
@@ -351,6 +351,8 @@ simulationPanel model =
                     [ class dialCss
                     , style dialStyle
                     , tabindex 1
+                    , attribute "data-toggle" "popover"
+                    , attribute "title" "drag & drop instance object to include in simulation"
 
                     --, onFocus (M.Display name hydroObject ("template" ++ name))
                     --, onClick (M.Display i.id hydroObject i.id)

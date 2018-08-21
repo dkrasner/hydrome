@@ -17,6 +17,7 @@ type alias Model =
     , hydroDomainInstances : List HydroDomain
     , hydroJobsInstances : List HydroJobs
     , hydroSchedulerInstances : List HydroScheduler
+    , hydroSimulation : HydroSimulation
     , display : String
     , displayMode : M.HydroObject
     , displayObjectId : String
@@ -34,6 +35,7 @@ model =
     , hydroDomainInstances = []
     , hydroJobsInstances = []
     , hydroSchedulerInstances = []
+    , hydroSimulation = HydroSimulation "simTemp" Nothing Nothing Nothing Nothing
     , display = "**** READY ****"
     , displayMode = M.NoObject
     , displayObjectId = ""
@@ -83,6 +85,15 @@ type alias HydroJobs =
 type alias HydroScheduler =
     { id : String
     , args : List HydroArg
+    }
+
+
+type alias HydroSimulation =
+    { id : String
+    , model : Maybe HydroModel
+    , domain : Maybe HydroDomain
+    , jobs : Maybe HydroJobs
+    , scheduler : Maybe HydroScheduler
     }
 
 

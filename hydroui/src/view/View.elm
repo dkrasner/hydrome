@@ -54,7 +54,7 @@ mainArea model =
             , display model
             , rightPanel model
             ]
-        , div [ class "panel lower row " ] [ text "lower panel" ]
+        , simulationPanel model
         ]
 
 
@@ -317,4 +317,50 @@ rightPanel model =
             , instanceController M.HydroDomainObject model "Domain Instances"
             , instanceController M.HydroJobsObject model "Jobs Instances"
             , instanceController M.HydroSchedulerObject model "Scheduler Instances"
+            ]
+
+
+
+{--Simulation Panel Area --}
+
+
+simulationPanel : Model -> Html Msg
+simulationPanel model =
+    let
+        controllerCss =
+            """
+            col w-25
+            d-flex
+            justify-content-center align-items-center
+            """
+
+        dialCss =
+            """
+            dial
+            d-flex
+            justify-content-center align-items-center
+            """
+
+        --TODO: this should update based on actions
+        dialStyle =
+            [ ( "cursor", "initial" ), ( "opacity", ".4" ) ]
+
+        controller name hydroObject symbol model =
+            div [ class controllerCss ]
+                [ button
+                    [ class dialCss
+                    , style dialStyle
+                    , tabindex 1
+
+                    --, onFocus (M.Display name hydroObject ("template" ++ name))
+                    --, onClick (M.Display i.id hydroObject i.id)
+                    ]
+                    [ text symbol ]
+                ]
+    in
+        div [ class "panel lower row" ]
+            [ controller "Model" M.HydroModelObject "M" model
+            , controller "Domain" M.HydroDomainObject "D" model
+            , controller "Jobs" M.HydroJobsObject "J" model
+            , controller "Scheduler" M.HydroSchedulerObject "S" model
             ]

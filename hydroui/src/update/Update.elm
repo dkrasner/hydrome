@@ -1,5 +1,6 @@
 module Update exposing (..)
 
+import Html5.DragDrop as DragDrop
 import Model exposing (Model)
 import Messages as M
 import Messages exposing (Msg)
@@ -178,6 +179,17 @@ update msg model =
 
                         M.NoObject ->
                             model
+            , Cmd.none
+            )
+
+        M.DragDropMsg msg_ ->
+            ( let
+                ( model_, result ) =
+                    DragDrop.update msg_ model.dragDrop
+              in
+                { model
+                    | dragDrop = model_
+                }
             , Cmd.none
             )
 

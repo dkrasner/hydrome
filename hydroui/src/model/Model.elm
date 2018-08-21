@@ -1,6 +1,6 @@
 module Model exposing (Model, model, HydroArg)
 
-import Array exposing (Array, fromList)
+import Html5.DragDrop as DragDrop
 import Messages as M
 
 
@@ -21,6 +21,7 @@ type alias Model =
     , display : String
     , displayMode : M.HydroObject
     , displayObjectId : String
+    , dragDrop : DragDrop.Model M.DragId M.DropId
     }
 
 
@@ -39,6 +40,7 @@ model =
     , display = "**** READY ****"
     , displayMode = M.NoObject
     , displayObjectId = ""
+    , dragDrop = DragDrop.init
     }
 
 

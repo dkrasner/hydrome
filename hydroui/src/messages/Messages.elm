@@ -1,5 +1,7 @@
 module Messages exposing (..)
 
+import Html5.DragDrop as DragDrop
+
 
 type Msg
     = ChangeArea String
@@ -7,6 +9,15 @@ type Msg
     | UpdateArgValue HydroObject String String -- HydroObject ArgName ArgValue
     | AddToInstances
     | DeleteFromInstances
+    | DragDropMsg (DragDrop.Msg DragId DropId)
+
+
+type alias DragId =
+    String
+
+
+type alias DropId =
+    String
 
 
 type HydroObject

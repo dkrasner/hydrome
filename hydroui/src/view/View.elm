@@ -352,45 +352,71 @@ simulationPanel model =
             justify-content-center align-items-center
             """
 
-        controller defaultSymbol hydroSimObject =
-            case hydroSimObject of
-                Just object ->
-                    div [ class controllerCss ]
-                        [ button
-                            [ class dialCss
-                            , style
-                                [ ( "cursor", "pointer" )
-                                , ( "opacity", "1.0" )
-                                , ( "font-size", "2vw" )
-                                , ( "background-color", "teal" )
+        dragId =
+            DragDrop.getDragId model.dragDrop
+
+        {--TODO: to have the appropriate dial light up on drag, we match on dragId;
+        i.e. if (String.startsWith matchSymbol dragId) is True (for example,
+        matchSymbol is "M" and dragId is "M_1") then we know to light up the correspoding
+        dial. This does not seem to be ideal but currently drag&drop works only on
+        element id --}
+        controller defaultSymbol matchSymbol hydroSimInstance =
+            let
+                defaultDialStyle =
+                    case dragId of
+                        Just id ->
+                            if (String.startsWith matchSymbol id) then
+                                style
+                                    [ ( "cursor", "help" )
+                                    , ( "opacity", "1.0" )
+                                    , ( "background-color", "#EE6E3F" )
+                                    , ( "font-size", "1vw" )
+                                    ]
+                            else
+                                style [ ( "cursor", "help" ), ( "opacity", ".4" ), ( "font-size", "1vw" ) ]
+
+                        Nothing ->
+                            style [ ( "cursor", "help" ), ( "opacity", ".4" ), ( "font-size", "1vw" ) ]
+            in
+                case hydroSimInstance of
+                    Just object ->
+                        div [ class controllerCss ]
+                            [ button
+                                [ class dialCss
+                                , style
+                                    [ ( "cursor", "pointer" )
+                                    , ( "opacity", "1.0" )
+                                    , ( "font-size", "2vw" )
+                                    , ( "background-color", "teal" )
+                                    ]
+
+                                --, onFocus (M.Display name hydroObject ("template" ++ name))
+                                --, onClick (M.Display i.id hydroObject i.id)
                                 ]
-
-                            --, onFocus (M.Display name hydroObject ("template" ++ name))
-                            --, onClick (M.Display i.id hydroObject i.id)
+                                [ text object.id ]
                             ]
-                            [ text object.id ]
-                        ]
 
-                Nothing ->
-                    div [ class controllerCss ]
-                        [ button
-                            [ class dialCss
-                            , style [ ( "cursor", "help" ), ( "opacity", ".4" ), ( "font-size", "1vw" ) ]
-                            , attribute "data-toggle" "popover"
-                            , attribute "title" "drag & drop instance object to include in simulation"
+                    Nothing ->
+                        div [ class controllerCss ]
+                            [ button
+                                [ class dialCss
+                                , defaultDialStyle
+                                , attribute "data-toggle" "popover"
+                                , attribute "title" "drag & drop instance object to include in simulation"
 
-                            --, onFocus (M.Display name hydroObject ("template" ++ name))
-                            --, onClick (M.Display i.id hydroObject i.id)
+                                --, onFocus (M.Display name hydroObject ("template" ++ name))
+                                --, onClick (M.Display i.id hydroObject i.id)
+                                ]
+                                [ text defaultSymbol ]
                             ]
-                            [ text defaultSymbol ]
-                        ]
     in
-        div
+        Debug.log (toString dragId)
+            div
             ([ class "panel lower row" ]
                 ++ DragDrop.droppable M.DragDropMsg "simulation"
             )
-            [ controller "Model Instance" hydroSimulation.model
-            , controller "Domain Instance" hydroSimulation.domain
-            , controller "Jobs Instance" hydroSimulation.jobs
-            , controller "Scheduler Instance" hydroSimulation.scheduler
+            [ controller "Model Instance" "M" hydroSimulation.model
+            , controller "Domain Instance" "D" hydroSimulation.domain
+            , controller "Jobs Instance" "J" hydroSimulation.jobs
+            , controller "Scheduler Instance" "S" hydroSimulation.scheduler
             ]

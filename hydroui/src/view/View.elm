@@ -25,6 +25,7 @@ import Html.Attributes
         )
 import String
 import List
+import Html5.DragDrop as DragDrop
 import Model exposing (Model, model)
 import Messages as M
 import Messages exposing (Msg)
@@ -296,11 +297,13 @@ rightPanel model =
                         List.map
                             (\i ->
                                 button
-                                    [ class dialCss
-                                    , style (dialStyle model i.id)
-                                    , tabindex 1
-                                    , onClick (M.Display i.id hydroObject i.id)
-                                    ]
+                                    ([ class dialCss
+                                     , style (dialStyle model i.id)
+                                     , tabindex 1
+                                     , onClick (M.Display i.id hydroObject i.id)
+                                     ]
+                                        ++ DragDrop.draggable M.DragDropMsg i.id
+                                    )
                                     [ text i.id ]
                             )
                             instances
@@ -360,7 +363,10 @@ simulationPanel model =
                     [ text symbol ]
                 ]
     in
-        div [ class "panel lower row" ]
+        div
+            ([ class "panel lower row" ]
+                ++ DragDrop.droppable M.DragDropMsg "simulation"
+            )
             [ controller "Model" M.HydroModelObject "M" model
             , controller "Domain" M.HydroDomainObject "D" model
             , controller "Jobs" M.HydroJobsObject "J" model

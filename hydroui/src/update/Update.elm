@@ -1,6 +1,7 @@
 module Update exposing (..)
 
 import Html5.DragDrop as DragDrop
+import Debug
 import Model exposing (Model)
 import Messages as M
 import Messages exposing (Msg)
@@ -189,9 +190,65 @@ update msg model =
               in
                 { model
                     | dragDrop = model_
+                    , hydroSimulation =
+                        case result of
+                            Nothing ->
+                                model.hydroSimulation
+
+                            Just ( dragId, dropId, dropPosition ) ->
+                                case dropId of
+                                    "simulation" ->
+                                        updateHydroSimulation dragId model
+
+                                    _ ->
+                                        model.hydroSimulation
                 }
             , Cmd.none
             )
+
+
+updateHydroSimulation : M.DragId -> Model -> Model.HydroSimulation
+updateHydroSimulation dragId model =
+    --TODO: at the moment we just match on first letter and not object type...
+    let
+        hydroSimulation =
+            model.hydroSimulation
+    in
+        case (String.left 1 dragId) of
+            "M" ->
+                { hydroSimulation
+                    | model =
+                        model.hydroModelInstances
+                            |> List.filter (\i -> i.id == dragId)
+                            |> List.head
+                }
+
+            "D" ->
+                { hydroSimulation
+                    | domain =
+                        model.hydroDomainInstances
+                            |> List.filter (\i -> i.id == dragId)
+                            |> List.head
+                }
+
+            "J" ->
+                { hydroSimulation
+                    | jobs =
+                        model.hydroJobsInstances
+                            |> List.filter (\i -> i.id == dragId)
+                            |> List.head
+                }
+
+            "S" ->
+                { hydroSimulation
+                    | scheduler =
+                        model.hydroSchedulerInstances
+                            |> List.filter (\i -> i.id == dragId)
+                            |> List.head
+                }
+
+            _ ->
+                hydroSimulation
 
 
 updateArgValue : String -> String -> Model.HydroArg -> Model.HydroArg

@@ -1,4 +1,4 @@
-module Model exposing (Model, model, HydroArg)
+module Model exposing (Model, model, HydroArg, HydroSimulation)
 
 import Html5.DragDrop as DragDrop
 import Messages as M

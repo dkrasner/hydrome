@@ -25,6 +25,7 @@ import Html.Attributes
         )
 import String
 import List
+import Regex
 import Html5.DragDrop as DragDrop
 import Model exposing (Model, model)
 import Messages as M
@@ -82,7 +83,7 @@ display model =
 
 displayButton : String -> Html Msg
 displayButton displayId =
-    if (String.startsWith "template" displayId) then
+    if (Regex.contains (Regex.regex "^template|^simulation") displayId) then
         button
             [ class "init"
             , tabindex 5
@@ -286,7 +287,7 @@ rightPanel model =
                         M.HydroSchedulerObject ->
                             model.hydroSchedulerInstances
 
-                        M.NoObject ->
+                        _ ->
                             []
             in
                 case (List.length instances) of
@@ -352,6 +353,20 @@ simulationPanel model =
             justify-content-center align-items-center
             """
 
+        simStyle =
+            if
+                (List.all checkIfJust
+                    [ hydroSimulation.model
+                    , hydroSimulation.domain
+                    , hydroSimulation.jobs
+                    , hydroSimulation.scheduler
+                    ]
+                )
+            then
+                [ ( "background-color", "#30543f" ), ( "cursor", "pointer" ) ]
+            else
+                []
+
         dragId =
             DragDrop.getDragId model.dragDrop
 
@@ -410,13 +425,28 @@ simulationPanel model =
                                 [ text defaultSymbol ]
                             ]
     in
-        Debug.log (toString dragId)
-            div
-            ([ class "panel lower row" ]
+        div
+            ([ class "panel lower row justify-content-center align-items-center" ]
                 ++ DragDrop.droppable M.DragDropMsg "simulation"
             )
-            [ controller "Model Instance" "M" hydroSimulation.model
-            , controller "Domain Instance" "D" hydroSimulation.domain
-            , controller "Jobs Instance" "J" hydroSimulation.jobs
-            , controller "Scheduler Instance" "S" hydroSimulation.scheduler
+            [ div [ class "simulation row", style simStyle, onClick (M.Display "Simulation" M.HydroSimulationObject "simulationTemp") ]
+                [ controller "Model Instance" "M" hydroSimulation.model
+                , controller "Domain Instance" "D" hydroSimulation.domain
+                , controller "Jobs Instance" "J" hydroSimulation.jobs
+                , controller "Scheduler Instance" "S" hydroSimulation.scheduler
+                ]
             ]
+
+
+
+{--helper function to check if an object is of type Just a or Nothing --}
+
+
+checkIfJust : Maybe a -> Bool
+checkIfJust a =
+    case a of
+        Just _ ->
+            True
+
+        Nothing ->
+            False

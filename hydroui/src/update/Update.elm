@@ -84,6 +84,9 @@ update msg model =
                                         { hydroScheduler | id = id } :: model.hydroSchedulerInstances
                             }
 
+                        M.HydroSimulationObject ->
+                            model
+
                         M.NoObject ->
                             model
             , Cmd.none
@@ -128,6 +131,9 @@ update msg model =
                                 , displayMode = M.NoObject
                                 , displayObjectId = ""
                             }
+
+                        M.HydroSimulationObject ->
+                            model
 
                         M.NoObject ->
                             model
@@ -177,6 +183,9 @@ update msg model =
                                     in
                                         { hydro | args = List.map (updateArgValue arg value) hydro.args }
                             }
+
+                        M.HydroSimulationObject ->
+                            model
 
                         M.NoObject ->
                             model

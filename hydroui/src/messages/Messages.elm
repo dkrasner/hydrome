@@ -25,4 +25,5 @@ type HydroObject
     | HydroDomainObject
     | HydroJobsObject
     | HydroSchedulerObject
+    | HydroSimulationObject
     | NoObject

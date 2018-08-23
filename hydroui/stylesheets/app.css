@@ -76,6 +76,7 @@ button:hover {
     color: white;
     font-size: 8vh;
     cursor: pointer;
+    transform: translate(0,0);
 }
 
 .dial.small {

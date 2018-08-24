@@ -62,16 +62,23 @@ mainArea model =
 
 display : Model -> Html Msg
 display model =
-    div [ class "display col" ]
-        [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
-            [ div [ class "row name" ]
-                [ text model.display ]
-            , argsDisplay model
+    let
+        mainDisplay =
+            if (Regex.contains (Regex.regex "^simulation") model.displayObjectId) then
+                displaySimulation model
+            else
+                argsDisplay model
+    in
+        div [ class "display col" ]
+            [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
+                [ div [ class "row name" ]
+                    [ text model.display ]
+                , mainDisplay
+                ]
+            , div [ class "row justify-content-center align-items-center" ]
+                [ displayButton model.displayObjectId
+                ]
             ]
-        , div [ class "row justify-content-center align-items-center" ]
-            [ displayButton model.displayObjectId
-            ]
-        ]
 
 
 
@@ -79,6 +86,25 @@ display model =
    all others are assumed to be instances and therefor can only be inspected
    and deleted
 -}
+
+
+displaySimulation : Model -> Html Msg
+displaySimulation model =
+    let
+        hydroObjectInfo name =
+            div [ class "row p-2 w-100 h-50 justify-content-center align-item-center" ]
+                [ text name ]
+    in
+        div [ class "row h-100 w-100" ]
+            [ div [ class "col w-50 h-100" ]
+                [ hydroObjectInfo "Q1"
+                , hydroObjectInfo "Q2"
+                ]
+            , div [ class "col w-50 h-100" ]
+                [ hydroObjectInfo "Q3"
+                , hydroObjectInfo "Q4"
+                ]
+            ]
 
 
 displayButton : String -> Html Msg

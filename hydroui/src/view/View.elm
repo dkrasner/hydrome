@@ -91,18 +91,31 @@ display model =
 displaySimulation : Model -> Html Msg
 displaySimulation model =
     let
-        hydroObjectInfo name =
-            div [ class "row p-2 w-100 h-50 justify-content-center align-item-center" ]
-                [ text name ]
+        simulation =
+            model.hydroSimulation
+
+        hydroObjectInfo hydroObject =
+            case hydroObject of
+                Just object ->
+                    div [ class "row p-2 w-100 h-50 justify-content-center align-item-center" ]
+                        [ div [] [ text object.id ]
+                        , div [ class "d-flex flex-wrap p-1 args" ]
+                            (List.map argInputGroup object.args)
+                        ]
+
+                Nothing ->
+                    div [ class "row p-2 w-100 h-50 justify-content-center align-item-center" ]
+                        [ div [] [ text "No info" ]
+                        ]
     in
         div [ class "row h-100 w-100" ]
             [ div [ class "col w-50 h-100" ]
-                [ hydroObjectInfo "Q1"
-                , hydroObjectInfo "Q2"
+                [ hydroObjectInfo simulation.model
+                , hydroObjectInfo simulation.domain
                 ]
             , div [ class "col w-50 h-100" ]
-                [ hydroObjectInfo "Q3"
-                , hydroObjectInfo "Q4"
+                [ hydroObjectInfo simulation.jobs
+                , hydroObjectInfo simulation.scheduler
                 ]
             ]
 
@@ -186,27 +199,6 @@ argsDisplay model =
             in
                 instance.args
 
-        argInputGroup a =
-            div [ class "w-100 d-flex" ]
-                [ div [ class "input-group input-group-sm mb-3" ]
-                    [ div
-                        [ class "input-group-prepend"
-                        , style [ ( "cursor", "help" ) ]
-                        , attribute "data-toggle" "popover"
-                        , attribute "title" a.doc
-                        ]
-                        [ span [ class "input-group-text" ] [ text a.name ] ]
-                    , input
-                        [ type_ "text"
-                        , class "form-control"
-                        , value a.default
-                        , for a.name
-                        , onInput (M.UpdateArgValue model.displayMode a.name)
-                        ]
-                        []
-                    ]
-                ]
-
         argsDiv =
             div [ class "d-flex flex-wrap p-4 args" ]
                 (List.map argInputGroup args)
@@ -217,6 +209,29 @@ argsDisplay model =
 
             _ ->
                 argsDiv
+
+
+argInputGroup : Model.HydroArg -> Html Msg
+argInputGroup a =
+    div [ class "w-100 d-flex" ]
+        [ div [ class "input-group input-group-sm mb-3" ]
+            [ div
+                [ class "input-group-prepend"
+                , style [ ( "cursor", "help" ) ]
+                , attribute "data-toggle" "popover"
+                , attribute "title" a.doc
+                ]
+                [ span [ class "input-group-text" ] [ text a.name ] ]
+            , input
+                [ type_ "text"
+                , class "form-control"
+                , value a.default
+                , for a.name
+                , onInput (M.UpdateArgValue model.displayMode a.name)
+                ]
+                []
+            ]
+        ]
 
 
 

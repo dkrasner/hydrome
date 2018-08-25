@@ -37,13 +37,9 @@ model =
     , hydroJobsInstances = []
     , hydroSchedulerInstances = []
     , hydroSimulation = HydroSimulation "simTemp" Nothing Nothing Nothing Nothing
-
-    --, display = "**** READY ****"
-    , display = "simulation"
+    , display = "**** READY ****"
     , displayMode = M.NoObject
-
-    -- , displayObjectId = ""
-    , displayObjectId = "simulation"
+    , displayObjectId = ""
     , dragDrop = DragDrop.init
     }
 

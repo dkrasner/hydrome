@@ -66,6 +66,10 @@ display model =
         mainDisplay =
             if (Regex.contains (Regex.regex "^simulation") model.displayObjectId) then
                 displaySimulation model
+            else if (Regex.contains (Regex.regex "^template") model.displayObjectId) then
+                inputArgsDisplay model
+            else if (model.displayObjectId == "") then
+                span [] []
             else
                 argsDisplay model
     in
@@ -100,7 +104,8 @@ displaySimulation model =
                     div [ class "row p-2 w-100 h-50 justify-content-center align-item-center" ]
                         [ div [] [ text object.id ]
                         , div [ class "d-flex flex-wrap p-1 args" ]
-                            (List.map argInputGroup object.args)
+                            --    (List.map argInputGroup object.args)
+                            [ text "args" ]
                         ]
 
                 Nothing ->
@@ -138,6 +143,61 @@ displayButton displayId =
             , onClick M.DeleteFromInstances
             ]
             [ text "delete" ]
+
+
+inputArgsDisplay : Model -> Html Msg
+inputArgsDisplay model =
+    let
+        args =
+            model.displayMode
+                |> \object ->
+                    case object of
+                        M.HydroModelObject ->
+                            model.hydroModel.args
+
+                        M.HydroDomainObject ->
+                            model.hydroDomain.args
+
+                        M.HydroJobsObject ->
+                            model.hydroJobs.args
+
+                        M.HydroSchedulerObject ->
+                            model.hydroScheduler.args
+
+                        _ ->
+                            []
+
+        argInputGroup a =
+            div [ class "w-100 d-flex" ]
+                [ div [ class "input-group input-group-sm mb-3" ]
+                    [ div
+                        [ class "input-group-prepend"
+                        , style [ ( "cursor", "help" ) ]
+                        , attribute "data-toggle" "popover"
+                        , attribute "title" a.doc
+                        ]
+                        [ span [ class "input-group-text" ] [ text a.name ] ]
+                    , input
+                        [ type_ "text"
+                        , class "form-control"
+                        , value a.default
+                        , for a.name
+                        , onInput (M.UpdateArgValue model.displayMode a.name)
+                        ]
+                        []
+                    ]
+                ]
+
+        argsDiv =
+            div [ class "d-flex flex-wrap p-4 args" ]
+                (List.map argInputGroup args)
+    in
+        case model.display of
+            "**** READY ****" ->
+                span [] []
+
+            _ ->
+                argsDiv
 
 
 argsDisplay : Model -> Html Msg
@@ -201,7 +261,7 @@ argsDisplay model =
 
         argsDiv =
             div [ class "d-flex flex-wrap p-4 args" ]
-                (List.map argInputGroup args)
+                (List.map argInputGroupTemp args)
     in
         case model.display of
             "**** READY ****" ->
@@ -211,8 +271,8 @@ argsDisplay model =
                 argsDiv
 
 
-argInputGroup : Model.HydroArg -> Html Msg
-argInputGroup a =
+argInputGroupTemp : Model.HydroArg -> Html Msg
+argInputGroupTemp a =
     div [ class "w-100 d-flex" ]
         [ div [ class "input-group input-group-sm mb-3" ]
             [ div

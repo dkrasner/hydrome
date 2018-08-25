@@ -104,8 +104,7 @@ displaySimulation model =
                     div [ class "row p-2 w-100 h-50 justify-content-center align-item-center" ]
                         [ div [] [ text object.id ]
                         , div [ class "d-flex flex-wrap p-1 args" ]
-                            --    (List.map argInputGroup object.args)
-                            [ text "args" ]
+                            (List.map argGroup object.args)
                         ]
 
                 Nothing ->
@@ -252,14 +251,10 @@ argGroup a =
                 , attribute "title" a.doc
                 ]
                 [ span [ class "input-group-text" ] [ text a.name ] ]
-            , input
-                [ type_ "text"
-                , class "form-control"
-                , value a.default
-                , for a.name
-                , onInput (M.UpdateArgValue model.displayMode a.name)
+            , div
+                [ class "form-control"
                 ]
-                []
+                [ text a.default ]
             ]
         ]
 

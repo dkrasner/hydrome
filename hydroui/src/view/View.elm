@@ -192,12 +192,7 @@ inputArgsDisplay model =
             div [ class "d-flex flex-wrap p-4 args" ]
                 (List.map argInputGroup args)
     in
-        case model.display of
-            "**** READY ****" ->
-                span [] []
-
-            _ ->
-                argsDiv
+        argsDiv
 
 
 argsDisplay : Model -> Html Msg
@@ -208,36 +203,16 @@ argsDisplay model =
                 |> \( object, id ) ->
                     case object of
                         M.HydroModelObject ->
-                            case id of
-                                "templateModel" ->
-                                    model.hydroModel.args
-
-                                _ ->
-                                    getArgsById id model.hydroModelInstances
+                            getArgsById id model.hydroModelInstances
 
                         M.HydroDomainObject ->
-                            case id of
-                                "templateDomain" ->
-                                    model.hydroDomain.args
-
-                                _ ->
-                                    getArgsById id model.hydroDomainInstances
+                            getArgsById id model.hydroDomainInstances
 
                         M.HydroJobsObject ->
-                            case id of
-                                "templateJobs" ->
-                                    model.hydroJobs.args
-
-                                _ ->
-                                    getArgsById id model.hydroJobsInstances
+                            getArgsById id model.hydroJobsInstances
 
                         M.HydroSchedulerObject ->
-                            case id of
-                                "templateScheduler" ->
-                                    model.hydroScheduler.args
-
-                                _ ->
-                                    getArgsById id model.hydroSchedulerInstances
+                            getArgsById id model.hydroSchedulerInstances
 
                         _ ->
                             []
@@ -261,18 +236,13 @@ argsDisplay model =
 
         argsDiv =
             div [ class "d-flex flex-wrap p-4 args" ]
-                (List.map argInputGroupTemp args)
+                (List.map argGroup args)
     in
-        case model.display of
-            "**** READY ****" ->
-                span [] []
-
-            _ ->
-                argsDiv
+        argsDiv
 
 
-argInputGroupTemp : Model.HydroArg -> Html Msg
-argInputGroupTemp a =
+argGroup : Model.HydroArg -> Html Msg
+argGroup a =
     div [ class "w-100 d-flex" ]
         [ div [ class "input-group input-group-sm mb-3" ]
             [ div

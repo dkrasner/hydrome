@@ -492,15 +492,20 @@ simulationPanel model =
                             ]
     in
         div
-            ([ class "panel lower row justify-content-center align-items-center" ]
-                ++ DragDrop.droppable M.DragDropMsg "simulation"
-            )
-            [ div [ class "simulation row", style simStyle, onClick (M.Display "Simulation" M.HydroSimulationObject "simulationTemp") ]
-                [ controller "Model Instance" "M" hydroSimulation.model
-                , controller "Domain Instance" "D" hydroSimulation.domain
-                , controller "Jobs Instance" "J" hydroSimulation.jobs
-                , controller "Scheduler Instance" "S" hydroSimulation.scheduler
+            [ class "panel lower row justify-content-center align-items-center" ]
+            [ div [ class "w-25 text-center" ] [ text "sims" ]
+            , div
+                ([ class "w-50 justify-content-center align-items-center" ]
+                    ++ DragDrop.droppable M.DragDropMsg "simulation"
+                )
+                [ div [ class "simulation row w-100", style simStyle, onClick (M.Display "Simulation" M.HydroSimulationObject "simulationTemp") ]
+                    [ controller "Model Instance" "M" hydroSimulation.model
+                    , controller "Domain Instance" "D" hydroSimulation.domain
+                    , controller "Jobs Instance" "J" hydroSimulation.jobs
+                    , controller "Scheduler Instance" "S" hydroSimulation.scheduler
+                    ]
                 ]
+            , div [ class "w-25 text-center" ] [ text "placeholder" ]
             ]
 
 

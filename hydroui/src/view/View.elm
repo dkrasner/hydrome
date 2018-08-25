@@ -493,7 +493,7 @@ simulationPanel model =
     in
         div
             [ class "panel lower row justify-content-center align-items-center" ]
-            [ div [ class "w-25 text-center" ] [ text "sims" ]
+            [ div [ class "w-25 text-center" ] [ text ("# of sims: " ++ (toString <| List.length <| model.hydroSimulationInstances)) ]
             , div
                 ([ class "w-50 justify-content-center align-items-center" ]
                     ++ DragDrop.droppable M.DragDropMsg "simulation"

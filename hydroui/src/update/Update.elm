@@ -85,7 +85,36 @@ update msg model =
                             }
 
                         M.HydroSimulationObject ->
-                            model
+                            { model
+                                | hydroSimulationInstances =
+                                    let
+                                        l =
+                                            List.length model.hydroSimulationInstances
+
+                                        id =
+                                            l |> (\n -> n + 1) |> toString |> (\s -> "S_" ++ s)
+
+                                        hydroSimulation =
+                                            model.hydroSimulation
+
+                                        -- Make sure the simulation is not of Nothing objects
+                                        -- TODO: this logic should be moved somewhere upstream
+                                        newSimulations =
+                                            if
+                                                (List.any checkIfJust
+                                                    [ hydroSimulation.model
+                                                    , hydroSimulation.domain
+                                                    , hydroSimulation.jobs
+                                                    , hydroSimulation.scheduler
+                                                    ]
+                                                )
+                                            then
+                                                { hydroSimulation | id = id } :: model.hydroSimulationInstances
+                                            else
+                                                model.hydroSimulationInstances
+                                    in
+                                        newSimulations
+                            }
 
                         M.NoObject ->
                             model
@@ -266,3 +295,17 @@ updateArgValue argName argValue hydroArg =
         { hydroArg | default = argValue }
     else
         hydroArg
+
+
+
+{--helper function to check if an object is of type Just a or Nothing --}
+
+
+checkIfJust : Maybe a -> Bool
+checkIfJust a =
+    case a of
+        Just _ ->
+            True
+
+        Nothing ->
+            False

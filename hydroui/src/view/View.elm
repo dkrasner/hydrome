@@ -286,7 +286,7 @@ argGroup a =
                 [ span [ class "input-group-text" ] [ text a.name ] ]
             , div
                 [ class "form-control"
-                , style [ ( "background-color", "#1b9292" ) ]
+                , style [ ( "background-color", "#1b9292" ), ( "overflow-x", "auto" ) ]
                 ]
                 [ text a.default ]
             ]

@@ -69,20 +69,12 @@ display model =
             else if (Regex.contains (Regex.regex "^template") model.displayObjectId) then
                 inputArgsDisplay model
             else if (model.displayObjectId == "") then
-                span [] []
+                [ span [] [] ]
             else
                 argsDisplay model
     in
         div [ class "display col" ]
-            [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
-                [ div [ class "row name" ]
-                    [ text model.display ]
-                , mainDisplay
-                ]
-            , div [ class "row justify-content-center align-items-center" ]
-                [ displayButton model.displayObjectId
-                ]
-            ]
+            mainDisplay
 
 
 
@@ -90,9 +82,11 @@ display model =
    all others are assumed to be instances and therefor can only be inspected
    and deleted
 -}
+-- Instance titles/ids can be changed by the user; whereas all other ids
+-- stay fixed
 
 
-displaySimulation : Model -> Html Msg
+displaySimulation : Model -> List (Html Msg)
 displaySimulation model =
     let
         simulation =
@@ -112,16 +106,24 @@ displaySimulation model =
                         [ div [] [ text "No info" ]
                         ]
     in
-        div [ class "row h-100 w-100" ]
-            [ div [ class "col w-50 h-100" ]
-                [ hydroObjectInfo simulation.model
-                , hydroObjectInfo simulation.domain
-                ]
-            , div [ class "col w-50 h-100" ]
-                [ hydroObjectInfo simulation.jobs
-                , hydroObjectInfo simulation.scheduler
+        [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
+            [ div [ class "row name" ]
+                [ text model.display ]
+            , div [ class "row h-100 w-100" ]
+                [ div [ class "col w-50 h-100" ]
+                    [ hydroObjectInfo simulation.model
+                    , hydroObjectInfo simulation.domain
+                    ]
+                , div [ class "col w-50 h-100" ]
+                    [ hydroObjectInfo simulation.jobs
+                    , hydroObjectInfo simulation.scheduler
+                    ]
                 ]
             ]
+        , div [ class "row justify-content-center align-items-center" ]
+            [ displayButton model.displayObjectId
+            ]
+        ]
 
 
 displayButton : String -> Html Msg
@@ -144,7 +146,7 @@ displayButton displayId =
             [ text "delete" ]
 
 
-inputArgsDisplay : Model -> Html Msg
+inputArgsDisplay : Model -> List (Html Msg)
 inputArgsDisplay model =
     let
         args =
@@ -191,10 +193,18 @@ inputArgsDisplay model =
             div [ class "d-flex flex-wrap p-4 args" ]
                 (List.map argInputGroup args)
     in
-        argsDiv
+        [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
+            [ div [ class "row name" ]
+                [ text model.display ]
+            , argsDiv
+            ]
+        , div [ class "row justify-content-center align-items-center" ]
+            [ displayButton model.displayObjectId
+            ]
+        ]
 
 
-argsDisplay : Model -> Html Msg
+argsDisplay : Model -> List (Html Msg)
 argsDisplay model =
     let
         args =
@@ -237,7 +247,15 @@ argsDisplay model =
             div [ class "d-flex flex-wrap p-4 args" ]
                 (List.map argGroup args)
     in
-        argsDiv
+        [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
+            [ div [ class "row name" ]
+                [ text model.display ]
+            , argsDiv
+            ]
+        , div [ class "row justify-content-center align-items-center" ]
+            [ displayButton model.displayObjectId
+            ]
+        ]
 
 
 argGroup : Model.HydroArg -> Html Msg

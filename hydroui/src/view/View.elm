@@ -98,7 +98,7 @@ displaySimulation model =
             case hydroObject of
                 Just object ->
                     div [ class "row p-2 w-100 h-50 justify-content-center align-item-center" ]
-                        [ div [] [ text object.id ]
+                        [ div [] [ text object.name ]
                         , div [ class "d-flex flex-wrap p-1 args" ]
                             (List.map argGroup object.args)
                         ]
@@ -515,7 +515,7 @@ simulationPanel model =
                                 --, onFocus (M.Display name hydroObject ("template" ++ name))
                                 --, onClick (M.Display i.id hydroObject i.id)
                                 ]
-                                [ text object.id ]
+                                [ text object.name ]
                             ]
 
                     Nothing ->
@@ -534,7 +534,7 @@ simulationPanel model =
     in
         div
             [ class "panel lower row justify-content-center align-items-center" ]
-            [ div [ class "w-25 text-center" ] [ text ("# of sims: " ++ (toString <| List.length <| model.hydroSimulationInstances)) ]
+            [ simulationInstances model
             , div
                 ([ class "w-50 justify-content-center align-items-center" ]
                     ++ DragDrop.droppable M.DragDropMsg "simulation"
@@ -548,6 +548,11 @@ simulationPanel model =
                 ]
             , div [ class "w-25 text-center" ] [ text "placeholder" ]
             ]
+
+
+simulationInstances : Model -> Html Msg
+simulationInstances model =
+    div [ class "w-25 text-center" ] [ text ("# of sims: " ++ (toString <| List.length <| model.hydroSimulationInstances)) ]
 
 
 

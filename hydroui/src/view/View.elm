@@ -552,7 +552,71 @@ simulationPanel model =
 
 simulationInstances : Model -> Html Msg
 simulationInstances model =
-    div [ class "w-25 text-center" ] [ text ("# of sims: " ++ (toString <| List.length <| model.hydroSimulationInstances)) ]
+    let
+        panelCss =
+            """
+            w-25
+            col
+            d-flex flex-column
+            justify-content-center align-items-center
+            """
+
+        controllerCss =
+            """
+            d-flex flex-row
+            justify-content-center align-items-center
+            """
+
+        dialCss =
+            """
+            dial
+            small
+            d-flex
+            justify-content-center align-items-center
+            """
+
+        instanceDials model defaultString =
+            case (List.length model.hydroSimulationInstances) of
+                0 ->
+                    [ span
+                        [ class "text-center font-weight-bold"
+                        , style [ ( "font-size", "1vw" ) ]
+                        ]
+                        [ text defaultString ]
+                    ]
+
+                _ ->
+                    List.map
+                        (\i ->
+                            let
+                                name =
+                                    if (String.length (i.name) > 3) then
+                                        (String.left 3 i.name) ++ "..."
+                                    else
+                                        i.name
+                            in
+                                button
+                                    ([ class dialCss
+                                     , style (dialStyle model i.id)
+                                     , tabindex 1
+                                     , onClick (M.Display i.id M.HydroSimulationObject i.id)
+                                     ]
+                                        ++ DragDrop.draggable M.DragDropMsg i.id
+                                    )
+                                    [ text name ]
+                        )
+                        model.hydroSimulationInstances
+
+        instanceController model defaultString =
+            div
+                [ class controllerCss
+                , style [ ( "overflow-x", "auto" ) ]
+                ]
+                (instanceDials model defaultString)
+    in
+        div [ class panelCss ]
+            [ instanceController model "Simulations"
+            ]
 
 
 

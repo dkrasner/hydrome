@@ -221,6 +221,52 @@ update msg model =
             , Cmd.none
             )
 
+        M.UpdateInstanceId object currentId newId ->
+            ( object
+                |> \n ->
+                    let
+                        updateInstanceId cId nId instance =
+                            if (instance.id == cId) then
+                                { instance | id = nId }
+                            else
+                                instance
+                    in
+                        case object of
+                            M.HydroModelObject ->
+                                { model
+                                    | hydroModelInstances =
+                                        List.map (updateInstanceId currentId newId) model.hydroModelInstances
+                                }
+
+                            M.HydroDomainObject ->
+                                { model
+                                    | hydroDomainInstances =
+                                        List.map (updateInstanceId currentId newId) model.hydroDomainInstances
+                                }
+
+                            M.HydroJobsObject ->
+                                { model
+                                    | hydroJobsInstances =
+                                        List.map (updateInstanceId currentId newId) model.hydroJobsInstances
+                                }
+
+                            M.HydroSchedulerObject ->
+                                { model
+                                    | hydroSchedulerInstances =
+                                        List.map (updateInstanceId currentId newId) model.hydroSchedulerInstances
+                                }
+
+                            M.HydroSimulationObject ->
+                                { model
+                                    | hydroSimulationInstances =
+                                        List.map (updateInstanceId currentId newId) model.hydroSimulationInstances
+                                }
+
+                            M.NoObject ->
+                                model
+            , Cmd.none
+            )
+
         M.DragDropMsg msg_ ->
             ( let
                 ( model_, result ) =

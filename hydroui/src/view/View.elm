@@ -69,9 +69,11 @@ display model =
             else if (Regex.contains (Regex.regex "^template") model.displayObjectId) then
                 inputArgsDisplay model
             else if (model.displayObjectId == "") then
-                [ span [] [] ]
+                [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
+                    [ span [] [ text model.display ] ]
+                ]
             else
-                argsDisplay model
+                instanceArgsDisplay model
     in
         div [ class "display col" ]
             mainDisplay
@@ -204,8 +206,8 @@ inputArgsDisplay model =
         ]
 
 
-argsDisplay : Model -> List (Html Msg)
-argsDisplay model =
+instanceArgsDisplay : Model -> List (Html Msg)
+instanceArgsDisplay model =
     let
         args =
             ( model.displayMode, model.displayObjectId )
@@ -246,10 +248,19 @@ argsDisplay model =
         argsDiv =
             div [ class "d-flex flex-wrap p-4 args" ]
                 (List.map argGroup args)
+
+        titleDiv =
+            div [ class "row name" ]
+                [ input
+                    [ type_ "text"
+                    , value model.displayObjectId
+                    , onInput (M.UpdateInstanceId model.displayMode model.displayObjectId)
+                    ]
+                    []
+                ]
     in
         [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
-            [ div [ class "row name" ]
-                [ text model.display ]
+            [ titleDiv
             , argsDiv
             ]
         , div [ class "row justify-content-center align-items-center" ]

@@ -253,9 +253,10 @@ instanceArgsDisplay model =
                 (List.map argGroup instance.args)
 
         titleDiv =
-            div [ class "row name" ]
+            div [ class "row name justify-content-center align-items-center" ]
                 [ input
                     [ type_ "text"
+                    , class "w-50 border rounded"
                     , value instance.name
                     , onInput (M.UpdateInstanceName model.displayMode model.displayObjectId)
                     ]
@@ -400,15 +401,22 @@ rightPanel model =
                     _ ->
                         List.map
                             (\i ->
-                                button
-                                    ([ class dialCss
-                                     , style (dialStyle model i.id)
-                                     , tabindex 1
-                                     , onClick (M.Display i.id hydroObject i.id)
-                                     ]
-                                        ++ DragDrop.draggable M.DragDropMsg i.id
-                                    )
-                                    [ text i.name ]
+                                let
+                                    name =
+                                        if (String.length (i.name) > 3) then
+                                            (String.left 3 i.name) ++ "..."
+                                        else
+                                            i.name
+                                in
+                                    button
+                                        ([ class dialCss
+                                         , style (dialStyle model i.id)
+                                         , tabindex 1
+                                         , onClick (M.Display i.id hydroObject i.id)
+                                         ]
+                                            ++ DragDrop.draggable M.DragDropMsg i.id
+                                        )
+                                        [ text name ]
                             )
                             instances
 

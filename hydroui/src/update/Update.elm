@@ -33,7 +33,7 @@ update msg model =
                                         hydroModel =
                                             model.hydroModel
                                     in
-                                        { hydroModel | id = id } :: model.hydroModelInstances
+                                        { hydroModel | id = id, name = id } :: model.hydroModelInstances
                             }
 
                         M.HydroDomainObject ->
@@ -49,7 +49,7 @@ update msg model =
                                         hydroDomain =
                                             model.hydroDomain
                                     in
-                                        { hydroDomain | id = id } :: model.hydroDomainInstances
+                                        { hydroDomain | id = id, name = id } :: model.hydroDomainInstances
                             }
 
                         M.HydroJobsObject ->
@@ -65,7 +65,7 @@ update msg model =
                                         hydroJobs =
                                             model.hydroJobs
                                     in
-                                        { hydroJobs | id = id } :: model.hydroJobsInstances
+                                        { hydroJobs | id = id, name = id } :: model.hydroJobsInstances
                             }
 
                         M.HydroSchedulerObject ->
@@ -81,7 +81,7 @@ update msg model =
                                         hydroScheduler =
                                             model.hydroScheduler
                                     in
-                                        { hydroScheduler | id = id } :: model.hydroSchedulerInstances
+                                        { hydroScheduler | id = id, name = id } :: model.hydroSchedulerInstances
                             }
 
                         M.HydroSimulationObject ->
@@ -109,7 +109,7 @@ update msg model =
                                                     ]
                                                 )
                                             then
-                                                { hydroSimulation | id = id } :: model.hydroSimulationInstances
+                                                { hydroSimulation | id = id, name = id } :: model.hydroSimulationInstances
                                             else
                                                 model.hydroSimulationInstances
                                     in
@@ -221,13 +221,13 @@ update msg model =
             , Cmd.none
             )
 
-        M.UpdateInstanceId object currentId newId ->
+        M.UpdateInstanceName object instanceId newName ->
             ( object
                 |> \n ->
                     let
-                        updateInstanceId cId nId instance =
-                            if (instance.id == cId) then
-                                { instance | id = nId }
+                        updateInstanceName id name instance =
+                            if (instance.id == id) then
+                                { instance | name = name }
                             else
                                 instance
                     in
@@ -235,31 +235,31 @@ update msg model =
                             M.HydroModelObject ->
                                 { model
                                     | hydroModelInstances =
-                                        List.map (updateInstanceId currentId newId) model.hydroModelInstances
+                                        List.map (updateInstanceName instanceId newName) model.hydroModelInstances
                                 }
 
                             M.HydroDomainObject ->
                                 { model
                                     | hydroDomainInstances =
-                                        List.map (updateInstanceId currentId newId) model.hydroDomainInstances
+                                        List.map (updateInstanceName instanceId newName) model.hydroDomainInstances
                                 }
 
                             M.HydroJobsObject ->
                                 { model
                                     | hydroJobsInstances =
-                                        List.map (updateInstanceId currentId newId) model.hydroJobsInstances
+                                        List.map (updateInstanceName instanceId newName) model.hydroJobsInstances
                                 }
 
                             M.HydroSchedulerObject ->
                                 { model
                                     | hydroSchedulerInstances =
-                                        List.map (updateInstanceId currentId newId) model.hydroSchedulerInstances
+                                        List.map (updateInstanceName instanceId newName) model.hydroSchedulerInstances
                                 }
 
                             M.HydroSimulationObject ->
                                 { model
                                     | hydroSimulationInstances =
-                                        List.map (updateInstanceId currentId newId) model.hydroSimulationInstances
+                                        List.map (updateInstanceName instanceId newName) model.hydroSimulationInstances
                                 }
 
                             M.NoObject ->

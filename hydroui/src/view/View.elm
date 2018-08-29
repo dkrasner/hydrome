@@ -107,10 +107,13 @@ displaySimulation model =
                     div [ class "row p-2 w-100 h-50 justify-content-center align-item-center" ]
                         [ div [] [ text "No info" ]
                         ]
+
+        titleDiv =
+            div [ class "row name" ]
+                [ text "Simulation" ]
     in
         [ div [ class "d-flex flex-column justify-content-center align-items-center h-75 m-4" ]
-            [ div [ class "row name" ]
-                [ text model.display ]
+            [ titleDiv
             , div [ class "row h-100 w-100" ]
                 [ div [ class "col w-50 h-100" ]
                     [ hydroObjectInfo simulation.model
@@ -209,26 +212,26 @@ inputArgsDisplay model =
 instanceArgsDisplay : Model -> List (Html Msg)
 instanceArgsDisplay model =
     let
-        args =
+        instance =
             ( model.displayMode, model.displayObjectId )
                 |> \( object, id ) ->
                     case object of
                         M.HydroModelObject ->
-                            getArgsById id model.hydroModelInstances
+                            getInstanceById id model.hydroModelInstances
 
                         M.HydroDomainObject ->
-                            getArgsById id model.hydroDomainInstances
+                            getInstanceById id model.hydroDomainInstances
 
                         M.HydroJobsObject ->
-                            getArgsById id model.hydroJobsInstances
+                            getInstanceById id model.hydroJobsInstances
 
                         M.HydroSchedulerObject ->
-                            getArgsById id model.hydroSchedulerInstances
+                            getInstanceById id model.hydroSchedulerInstances
 
                         _ ->
-                            []
+                            { id = "placeholder", name = "placeholder", args = [] }
 
-        getArgsById id instances =
+        getInstanceById id instances =
             let
                 instance =
                     instances
@@ -240,21 +243,21 @@ instanceArgsDisplay model =
                                         i
 
                                     Nothing ->
-                                        { id = "placeholder", args = [] }
+                                        { id = "placeholder", name = "placeholder", args = [] }
                            )
             in
-                instance.args
+                instance
 
         argsDiv =
             div [ class "d-flex flex-wrap p-4 args" ]
-                (List.map argGroup args)
+                (List.map argGroup instance.args)
 
         titleDiv =
             div [ class "row name" ]
                 [ input
                     [ type_ "text"
-                    , value model.displayObjectId
-                    , onInput (M.UpdateInstanceId model.displayMode model.displayObjectId)
+                    , value instance.name
+                    , onInput (M.UpdateInstanceName model.displayMode model.displayObjectId)
                     ]
                     []
                 ]
@@ -405,7 +408,7 @@ rightPanel model =
                                      ]
                                         ++ DragDrop.draggable M.DragDropMsg i.id
                                     )
-                                    [ text i.id ]
+                                    [ text i.name ]
                             )
                             instances
 

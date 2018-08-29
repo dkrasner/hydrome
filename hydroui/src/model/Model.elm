@@ -37,7 +37,7 @@ model =
     , hydroDomainInstances = []
     , hydroJobsInstances = []
     , hydroSchedulerInstances = []
-    , hydroSimulation = HydroSimulation "simTemp" Nothing Nothing Nothing Nothing
+    , hydroSimulation = HydroSimulation "simulationTemp" "simulationTemp" Nothing Nothing Nothing Nothing
     , hydroSimulationInstances = []
     , display = "**** READY ****"
     , displayMode = M.NoObject
@@ -70,30 +70,35 @@ type alias HydroArg =
 
 type alias HydroModel =
     { id : String
+    , name : String
     , args : List HydroArg
     }
 
 
 type alias HydroDomain =
     { id : String
+    , name : String
     , args : List HydroArg
     }
 
 
 type alias HydroJobs =
     { id : String
+    , name : String
     , args : List HydroArg
     }
 
 
 type alias HydroScheduler =
     { id : String
+    , name : String
     , args : List HydroArg
     }
 
 
 type alias HydroSimulation =
     { id : String
+    , name : String
     , model : Maybe HydroModel
     , domain : Maybe HydroDomain
     , jobs : Maybe HydroJobs
@@ -108,6 +113,7 @@ type alias HydroSimulation =
 hydroModel : HydroModel
 hydroModel =
     { id = "templateModel"
+    , name = "templateModel"
     , args =
         [ HydroArg "source_dir"
             "wrf_hydro_nwm/trunk/NDHMS"
@@ -156,6 +162,7 @@ hydroModel =
 hydroDomain : HydroDomain
 hydroDomain =
     { id = "templateDomain"
+    , name = "templateDomain"
     , args =
         [ HydroArg "domain_top_dir"
             "dir name"
@@ -197,6 +204,7 @@ hydroDomain =
 hydroJobs : HydroJobs
 hydroJobs =
     { id = "templateJobs"
+    , name = "templateJobs"
     , args =
         [ HydroArg "job_id" "job id" [] "A string identify the job" String
         , HydroArg "model_start_time"
@@ -245,6 +253,7 @@ hydroJobs =
 hydroScheduler : HydroScheduler
 hydroScheduler =
     { id = "templateScheduler"
+    , name = "templateScheduler"
     , args =
         [ HydroArg "account" "account string" [] "The account string" String
         , HydroArg "email_who" "email@domain" [] "Email address for PBS notifications" String

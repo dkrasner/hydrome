@@ -7,7 +7,7 @@ type Msg
     = ChangeArea String
     | Display String HydroObject String -- display string, object type, object id
     | UpdateArgValue HydroObject String String -- HydroObject ArgName ArgValue
-    | UpdateInstanceId HydroObject String String -- HydroObject currentId newId
+    | UpdateInstanceName HydroObject String String -- HydroObject currentId newName
     | AddToInstances
     | DeleteFromInstances
     | DragDropMsg (DragDrop.Msg DragId DropId)
